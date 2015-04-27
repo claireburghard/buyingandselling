@@ -10,8 +10,7 @@ Claire Burghard, Rebecca Yuste, Veronika Azzara, and Jenny Baran's Software Deve
 ###Jenny:
 
 #TIMELINE:
-##4/27: Have the base files made with some boiler plate front-end code done; start on login system (Claire)
-        Talk about and decide on functions of the app in our group chat; finish timeline. 
+##4/27: Have the base files made with some boiler plate front-end code done; start on login system (Claire); Talk about and decide on functions of the app in our group chat; finish timeline. 
 ##4/28: Have a working login system done with mongo backend
 ##4/29: Work on posting function
 ##4/30: Work on posting function
