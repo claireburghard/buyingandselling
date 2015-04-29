@@ -15,7 +15,7 @@ Claire Burghard, Rebecca Yuste, Veronika Azzara, and Jenny Baran's Software Deve
 ##Posting function
 ##Searching/tags function
 ##Bidding algorithms (includes setting a time to finish the bid, etc) 
-##Algorthms for meeting up (each person has a specific area they are willing to travel to, when two people get matched up the program determines the intersection of their areas and displays that) 
+##Algorithms for meeting up (each person has a specific area they are willing to travel to, when two people get matched up the program determines the intersection of their areas and displays that) 
 ##Notifications
 ##Messaging
 ##Backing out
