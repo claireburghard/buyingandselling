@@ -25,14 +25,14 @@ Claire Burghard, Rebecca Yuste, Veronika Azzara, and Jenny Baran's Software Deve
 #TIMELINE:
 ##4/27: Have the base files made with some boiler plate front-end code done; start on login system (Claire); Talk about and decide on functions of the app in our group chat; finish timeline. 
 ##4/28: Have a working login system done with mongo backend
-##4/29: Work on posting function
-##4/30: Work on posting function
-##5/1: Work on posting function
-##5/2: Have the posting function finished.
-##5/3: Work on searching/tags function
-##5/4: Work on searching/tags function
-##5/5: Work on searching/tags function 
-##5/6: Have the searching/tags function finished.
+##4/29: Pd 6: Work on posting function, Pd 7: work on searching/tags function
+##4/30: Pd 6: Work on posting function, Pd 7: work on searching/tags function
+##5/1: Pd 6: Work on posting function, Pd 7: work on searching/tags function
+##5/2: Pd 6: Work on posting function, Pd 7: work on searching/tags function
+##5/3: Pd 6: Work on posting function, Pd 7: work on searching/tags function
+##5/4: Pd 6: Work on posting function, Pd 7: work on searching/tags function
+##5/5: Pd 6: Work on combining posting and tags functions
+##5/6: Have posting and tags working together properly. Also, have profile functions done.
 ##5/7: Work on bidding
 ##5/8: Work on bidding
 ##5/9: Work on bidding 
