@@ -8,8 +8,8 @@ Claire Burghard, Rebecca Yuste, Veronika Azzara, and Jenny Baran's Software Deve
 ###Claire: Front-end
 ###Rebecca: Back-end
 ##Period 7
-###Veronika:
-###Jenny:
+###Veronika: Front-end
+###Jenny: Back-end
 
 #OUTLINE:
 ##Posting function
@@ -25,7 +25,7 @@ Claire Burghard, Rebecca Yuste, Veronika Azzara, and Jenny Baran's Software Deve
 #TIMELINE:
 ##4/27: Have the base files made with some boiler plate front-end code done; start on login system (Claire); Talk about and decide on functions of the app in our group chat; finish timeline. 
 ##4/28: Have a working login system done with mongo backend
-##4/29: Pd 6: Work on posting function, Pd 7: work on searching/tags function
+##4/29: Pd 6: Flask skeleton, Pd 7: Branching setup, mongo setup
 ##4/30: Pd 6: Work on posting function, Pd 7: work on searching/tags function
 ##5/1: Pd 6: Work on posting function, Pd 7: work on searching/tags function
 ##5/2: Pd 6: Work on posting function, Pd 7: work on searching/tags function
