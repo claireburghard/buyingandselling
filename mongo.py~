@@ -9,6 +9,7 @@ def add_user(username,password,name):
         'username' : username,
         'password' : password,
         'name' : name,
+        'wishlist': "empty"
     }
     return users.insert(user)
 
