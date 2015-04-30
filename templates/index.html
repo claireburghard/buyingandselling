@@ -6,25 +6,19 @@
 {{message}}
 
 <div>
-  <h2>Have an account? Sign in here</h2>
-  <form role="form" method="POST">
-    <p><input type="text" class="form-control" name="logusername" placeholder="Username"></p>
-    <p><input type="password" class="form-control" name="logpassword" placeholder="Password"></p>
-    <p><input type="submit" name="b" class="btn btn-default" value="Log In">
-      <input type="submit" name="b" class="btn btn-default" value="Cancel"></p>
-  </form>
-</div>
-
-<div>
-  <h2>Don't already have an account? Sign up here</h2>
-  <form role="form" method="POST">
-    <p><input type="text" class="form-control" name="signusername" placeholder="Username"></p>
-    <p><input type="password" class="form-control" name="signpassword" placeholder="Password"></p>
-    <p><input type="password" class="form-control" name="signpassword2" placeholder="Confirm Password"></p>
-    <p><input type="text" class="form-control" name="name" placeholder="Name"></p>
-    <p><input type="submit" name="b" class="btn btn-default" value="Sign Up">
-      <input type="submit" name="b" class="btn btn-default" value="Cancel"></p>
-  </form>
+    <center>
+        Click here to register:
+        <br>
+        <a href="{{ url_for('register') }}">
+            <button>Register</button>
+        </a>
+        <br>
+        Click here to login:
+        <br>
+        <a href="{{ url_for('login') }}">
+            <button>Log in</button>
+        </a>
+    </center>
 </div>
 
 {%endblock bodycontent %}

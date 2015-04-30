@@ -12,9 +12,16 @@ def index():
     if 'username' in session:
         return redirect(url_for('home'))
     else:
+        return render_template("index.html", message=message)
+
+@app.route("/login", methods=['GET','POST'])
+def login():
+    if 'username' in session:
+        return redirect(url_for('home'))
+    else:
         message = ""
         if request.method=="GET":
-            return render_template("index.html", message=message)
+            return render_template("login.html", message=message)
         else:
             if request.form['b']=="Log In":
                 username = request.form["logusername"]
@@ -22,7 +29,7 @@ def index():
                 confirmation = mongo.authenticate(username,password)
                 if confirmation != "match":
                     message = confirmation
-                    return render_template("index.html", message=message)
+                    return render_template("login.html", message=message)
                 if confirmation == "match":
                     session['username'] = username
                     return redirect(url_for('home'))
@@ -32,23 +39,21 @@ def index():
                 password2 = request.form["signpassword2"]
                 name = request.form["name"]
                 if mongo.user_exists(username) == "exists":
-                    message = "Someone already has this username. Please use a different one." 
+                    message = "Someone already has this username. Please use a different one."
                     return render_template("index.html", message=message)
                 else:
                     if password == password2:
                         mongo.add_user(username,password,name)
-                        message = "Registration Sucessful! Log In to get started." 
+                        message = "Registration sucessful! Log in to get started."
                         return render_template("index.html", message=message)
                     else:
-                        message = "Please make sure your passwords match"
+                        message = "Please make sure your passwords match."
                         return render_template("index.html", message=message)
             if request.form['b']=="Cancel":
                 return render_template("index.html", message=message)
 
 
-
-
-@app.route("/signup",methods=['GET','POST'])
+@app.route("/register",methods=['GET','POST'])
 def signup():
     message = ""
     if request.method=="GET":
