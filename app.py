@@ -9,6 +9,7 @@ app.secret_key = 'secret'
 @app.route("/", methods=['GET','POST'])
 @app.route("/index", methods=['GET','POST'])
 def index():
+    message = ""
     if 'username' in session:
         return redirect(url_for('home'))
     else:
