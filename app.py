@@ -65,6 +65,18 @@ def home():
         return redirect(url_for('index'))
     else:
         return render_template('home.html')
+
+@app.route("/signup", methods=['GET','POST'])
+def signup()
+if 'username' not in session:
+    return redirect(url_for('index'))
+else:
+return render_template('signup.html')
+
+@app.route("/logout")
+def logout():
+    session.pop("myuser", None)
+    return redirect(url_for('login'))
     
 if __name__=="__main__":
     app.debug=True
