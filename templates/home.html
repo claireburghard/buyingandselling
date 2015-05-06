@@ -12,12 +12,14 @@
       </button>
       <a class="navbar-brand" href="#">Buying & Selling</a>
     </div>
+
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <form class="navbar-form navbar-left" role="search">
+      <form class="navbar-form navbar-left" role="search" method="POST">
         <div class="form-group">
           <input type="text" class="form-control" placeholder="Search">
         </div>
         <button type="submit" class="btn btn-default">Submit</button>
+	<button type="submit" name="b" value="Logout" class="btn btn-default">Log Out</button>
       </form>
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
@@ -25,6 +27,11 @@
 {%endblock headcontent %}
 
 {% block bodycontent %}
-<h1>WOO IT WORKED CONGRATS GUYS</h1>
+<div class="container" style="max-width:730px;">
+  <form method="POST">
+    <p><input type="text" class="form-control" name="title" placeholder="Username"></p>
+    <input type="submit" name="b" class="btn btn-default" value="Submit">
+  </form>
+</div>
 
 {%endblock bodycontent %}

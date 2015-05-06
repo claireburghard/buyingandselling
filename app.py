@@ -58,8 +58,26 @@ def signup():
 
 @app.route("/home",methods=['GET','POST'])
 def home():
-    return render_template('home.html')
+    if 'username' in session:
+        message = ""
+        if request.method=="GET":
+            return render_template('home.html', message=message)
+        else:
+            print "logout"
+            if request.form['b']=="Logout":
+                print "logout"
+                return redirect(url_for('logout'))
+            if request.form['b']=="Submit":
+                pass
+                
+    else:
+        return redirect(url_for('index'))
     
+@app.route("/logout")
+def logout():
+    session.pop('username',None)
+    return redirect(url_for('index'))
+
 if __name__=="__main__":
     app.debug=True
     app.run()
