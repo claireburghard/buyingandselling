@@ -26,3 +26,17 @@ def authenticate( username, passw ):
     elif user['password'] != passw:
         return "Password and username do not match"
     return "match"
+
+def add_post(username, title, content, price):
+    user = users.find_one({'username': username})
+    if user == None:
+        return "Unable to post"
+    post = {
+        'title': title,
+        'content': content,
+        'price': price,
+    }
+    user['post'] = post
+    return "done"
+        
+add_post('rebecca', 'test', 'test', 'test')

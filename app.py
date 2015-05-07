@@ -1,6 +1,7 @@
 from flask import Flask, flash,  render_template, request, redirect, url_for, session, escape
 
 import mongo
+import posts
 
 
 app = Flask(__name__)
