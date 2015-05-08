@@ -1,8 +1,6 @@
 from flask import Flask, flash,  render_template, request, redirect, url_for, session, escape
 
 import mongo
-import posts
-
 
 app = Flask(__name__)
 app.secret_key = 'secret'
@@ -66,10 +64,14 @@ def home():
         else:
             print "logout"
             if request.form['b']=="Logout":
-                print "logout"
+                #print "logout"
                 return redirect(url_for('logout'))
             if request.form['b']=="Submit":
-                pass
+                title = request.form['title']
+                content = request.form['content']
+                price = request.form['price']
+                # don't know/ trying to figure out how to get the username from the session-- if you can help please do
+                #mongo.add_post('username', title, content, price)
                 
     else:
         return redirect(url_for('index'))
