@@ -53,7 +53,7 @@ def register():
                 if password == password2:
                     mongo.add_user(username,password,name)
                     message = "Registration sucessful! Log in to get started."
-                    return render_template("login.html", message=message)
+                    return  redirect(url_for('signup'))
                 else:
                     message = "Please make sure your passwords match."
                     return render_template("register.html", message=message)
@@ -62,7 +62,7 @@ def register():
 def home():
     if 'username' not in session:
         return redirect(url_for('index'))
-   else:
+    else:
         message = ""
         if request.method=="GET":
             return render_template('home.html', message=message)
@@ -80,11 +80,11 @@ def home():
                 
 
 @app.route("/signup", methods=['GET','POST'])
-def signup()
-if 'username' not in session:
-    return redirect(url_for('index'))
-else:
-return render_template('signup.html')
+def signup():
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    else:
+        return render_template('signup.html')
 
     
 @app.route("/logout")

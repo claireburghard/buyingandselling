@@ -22,6 +22,9 @@
 	<button type="submit" name="b" value="Logout" class="btn btn-default">Log Out</button>
       </form>
     </div><!-- /.navbar-collapse -->
+  </div><!-- /.container-fluid -->
+  {% endblock headcontent %}
+  {% block bodycontent %}
     <div class="container" style="max-width:730px;">
       <form method="POST">
 	<p><input type="text" class="form-control" name="title" placeholder="Title"></p>
@@ -30,7 +33,7 @@
 	<input type="submit" name="b" class="btn btn-default" value="Submit">
       </form>
     </div><!-- /.container -->
-  </div><!-- /.container-fluid -->
+  
 </nav>
 
-{%endblock bodycontent %}
+{% endblock bodycontent %}
