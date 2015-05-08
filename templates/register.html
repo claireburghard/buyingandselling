@@ -1,0 +1,38 @@
+{% extends "base.html" %}
+{% block bodycontent %}
+
+<h1>Register</h1>
+
+{{message}}
+
+<div>
+    <h2>Sign up here</h2>
+    <form role="form" method="POST">
+        <p>
+            <input type="text" class="form-control" name="regusername" placeholder="Username"/>
+        </p>
+        <p>
+            <input type="password" class="form-control" name="regpassword" placeholder="Password"/>
+        </p>
+        <p>
+            <input type="password" class="form-control" name="regpassword2" placeholder="Confirm Password"/>
+        </p>
+        <p>
+            <input type="text" class="form-control" name="name" placeholder="Name"/>
+        </p>
+        <p>
+            <input type="submit" name="b" class="btn btn-default" value="Register"/>
+            <input type="submit" name="b" class="btn btn-default" value="Cancel"/>
+        </p>
+        <p>
+            Already have an account? Log in here!
+            <br>
+            <a href="{{ url_for('login') }}">
+                <button>Log in</button>
+            </a>
+        </p>
+    </form>
+</div>
+
+
+{%endblock bodycontent %}
