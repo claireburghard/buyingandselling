@@ -21,7 +21,7 @@ def user_exists(username):
 
 def authenticate( username, passw ):
     user = users.find_one({'username': username})
-    if user  == None:
+    if user == None:
         return "Username does not exist"
     elif user['password'] != passw:
         return "Password and username do not match"
