@@ -1,8 +1,6 @@
 from flask import Flask, flash,  render_template, request, redirect, url_for, session, escape
 
 import mongo
-import posts
-
 
 app = Flask(__name__)
 app.secret_key = 'secret'
@@ -73,6 +71,16 @@ def home():
                 
     else:
         return redirect(url_for('index'))
+
+
+@app.route("/profile",methods=['GET','POST'])
+def profile():
+    if 'username' in session:
+        if request.method=="GET":
+            return render_template('profile.html')
+        else:
+            return render_template('profile.html')
+
     
 @app.route("/logout")
 def logout():
