@@ -76,7 +76,8 @@ def home():
                 price = request.form['price']
                 user = session['username']
                 mongo.add_post(user, title, content, price)
-                
+                posts = mongo.get_posts(user)
+                return render_template('home.html', message=posts)
 
 @app.route("/signup", methods=['GET','POST'])
 def signup():
@@ -122,10 +123,7 @@ def myactivity():
             return render_template('myactivity.html')
         else:
             return render_template('myactivity.html')
-                user = session['username']
-                mongo.add_post(user, title, content, price)
-                posts = mongo.get_posts(user)
-                return render_template('home.html', message=posts)
+               
     else:
         return redirect(url_for('index'))
 
