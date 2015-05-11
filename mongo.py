@@ -21,11 +21,37 @@ def user_exists(username):
 
 def authenticate( username, passw ):
     user = users.find_one({'username': username})
-    if user  == None:
+    if user == None:
         return "Username does not exist"
     elif user['password'] != passw:
         return "Password and username do not match"
     return "match"
 
+def add_post(username, title, content, price):
+    user = users.find_one({'username': username})
+    print user
+    if user == None:
+        return "Unable to post"
+    post = {
+        'title': title,
+        'content': content,
+        'price': price,
+    }
+    user['post'] = post
+    print "post"
+    print user['post']
+    print "user"
+    print user
+    return "done"
 
+def get_posts(username):
+    user = users.find_one({'username':username})
+    #post = user.find_one({
+    if user == None:
+        return "whoops"
+    print 'user'
+    print user
+    return
 
+add_post('rebecca','test1','test1','test1')
+print get_posts('rebecca')

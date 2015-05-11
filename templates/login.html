@@ -18,14 +18,14 @@
             <input type="submit" name="b" class="btn btn-default" value="Log In"/>
             <input type="submit" name="b" class="btn btn-default" value="Cancel"/>
         </p>
-        <p>
-            Don't have an account yet? Register here!
-            <br>
-            <a href="{{ url_for('register') }}">
-                <button>Register</button>
-            </a>
-        </p>
     </form>
+        <p>
+          Don't have an account yet? Register here!
+          <br>
+          <form action="{{ url_for('register') }}">
+	    <input type="submit" value="Register">
+	  </form>
+        </p>
 </div>
 
 {%endblock bodycontent %}
