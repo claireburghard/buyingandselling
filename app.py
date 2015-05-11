@@ -70,9 +70,10 @@ def home():
                 title = request.form['title']
                 content = request.form['content']
                 price = request.form['price']
-                # don't know/ trying to figure out how to get the username from the session-- if you can help please do
-                #mongo.add_post('username', title, content, price)
-                
+                user = session['username']
+                mongo.add_post(user, title, content, price)
+                posts = mongo.get_posts(user)
+                return render_template('home.html', message=posts)
     else:
         return redirect(url_for('index'))
     

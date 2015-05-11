@@ -29,6 +29,7 @@ def authenticate( username, passw ):
 
 def add_post(username, title, content, price):
     user = users.find_one({'username': username})
+    print user
     if user == None:
         return "Unable to post"
     post = {
@@ -37,5 +38,20 @@ def add_post(username, title, content, price):
         'price': price,
     }
     user['post'] = post
+    print "post"
     print user['post']
+    print "user"
+    print user
     return "done"
+
+def get_posts(username):
+    user = users.find_one({'username':username})
+    #post = user.find_one({
+    if user == None:
+        return "whoops"
+    print 'user'
+    print user
+    return
+
+add_post('rebecca','test1','test1','test1')
+print get_posts('rebecca')
