@@ -37,6 +37,5 @@ def add_post(username, title, content, price):
         'price': price,
     }
     user['post'] = post
+    print user['post']
     return "done"
-        
-add_post('rebecca', 'test', 'test', 'test')
