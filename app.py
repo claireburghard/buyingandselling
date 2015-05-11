@@ -90,52 +90,68 @@ def signup():
 
 @app.route("/profile",methods=['GET','POST'])
 def profile():
-    if 'username' in session:
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    else:
         if request.method=="GET":
             return render_template('profile.html')
         else:
-            return render_template('profile.html')
-    else:
-        return redirect(url_for('index'))
+            if request.form['b']=="Logout":
+                print "logout"
+                return redirect(url_for('logout'))
 
 @app.route("/market",methods=['GET','POST'])
 def market():
-    if 'username' in session:
+   if 'username' not in session:
+        return redirect(url_for('index'))
+    else:
         if request.method=="GET":
             return render_template('market.html')
         else:
-            return render_template('market.html')
-    else:
-        return redirect(url_for('index'))
+            if request.form['b']=="Logout":
+                print "logout"
+                return redirect(url_for('logout'))
+
 
 
 @app.route("/myitems",methods=['GET','POST'])
 def myitems():
-    if 'username' in session:
+   if 'username' not in session:
+        return redirect(url_for('index'))
+    else:
         if request.method=="GET":
             return render_template('myitems.html')
-    else:
-        return redirect(url_for('index'))
+        else:
+            if request.form['b']=="Logout":
+                print "logout"
+                return redirect(url_for('logout'))
+
 
 @app.route("/myactivity",methods=['GET','POST'])
 def myactivity():
-    if 'username' in session:
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    else:
         if request.method=="GET":
             return render_template('myactivity.html')
         else:
-            return render_template('myactivity.html')
-    else:
-        return redirect(url_for('index'))
+            if request.form['b']=="Logout":
+                print "logout"
+                return redirect(url_for('logout'))
+
 
 @app.route("/messages",methods=['GET','POST'])
 def messages():
-    if 'username' in session:
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    else:
         if request.method=="GET":
             return render_template('messages.html')
         else:
-            return render_template('messages.html')
-    else:
-        return redirect(url_for('index'))
+            if request.form['b']=="Logout":
+                print "logout"
+                return redirect(url_for('logout'))
+
 
     
 @app.route("/logout")
