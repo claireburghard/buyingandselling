@@ -5,6 +5,18 @@ import mongo
 app = Flask(__name__)
 app.secret_key = 'secret'
 
+def authenticate(page):
+    def decorate(f):
+        @wraps(f)
+        def inner(*args):
+            if 'username' not in session:
+                flash("You need to be logged in to see that!")
+                session['nextpage'] = page
+                return redirect(url_for("login"))
+            return f(*args)
+        return inner
+    return decorate
+
 @app.route("/", methods=['GET','POST'])
 @app.route("/index", methods=['GET','POST'])
 def index():
@@ -52,7 +64,7 @@ def register():
             else:
                 if password == password2:
                     mongo.add_user(username,password,name)
-                    message = "Registration sucessful! Log in to get started."
+                    session['username'] = username
                     return  redirect(url_for('signup'))
                 else:
                     message = "Please make sure your passwords match."
@@ -85,7 +97,8 @@ def signup():
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
-        return render_template('signup.html')
+        if request.method=="GET":
+            return render_template('signup.html')
 
 
 @app.route("/profile",methods=['GET','POST'])
@@ -104,13 +117,13 @@ def profile():
 def market():
    if 'username' not in session:
         return redirect(url_for('index'))
-    else:
-        if request.method=="GET":
-            return render_template('market.html')
-        else:
-            if request.form['b']=="Logout":
-                print "logout"
-                return redirect(url_for('logout'))
+   else:
+       if request.method=="GET":
+           return render_template('market.html')
+       else:
+           if request.form['b']=="Logout":
+               print "logout"
+               return redirect(url_for('logout'))
 
 
 
@@ -118,13 +131,13 @@ def market():
 def myitems():
    if 'username' not in session:
         return redirect(url_for('index'))
-    else:
-        if request.method=="GET":
-            return render_template('myitems.html')
-        else:
-            if request.form['b']=="Logout":
-                print "logout"
-                return redirect(url_for('logout'))
+   else:
+       if request.method=="GET":
+           return render_template('myitems.html')
+       else:
+           if request.form['b']=="Logout":
+               print "logout"
+               return redirect(url_for('logout'))
 
 
 @app.route("/myactivity",methods=['GET','POST'])
@@ -136,7 +149,6 @@ def myactivity():
             return render_template('myactivity.html')
         else:
             if request.form['b']=="Logout":
-                print "logout"
                 return redirect(url_for('logout'))
 
 
