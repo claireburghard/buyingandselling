@@ -68,12 +68,13 @@ def home():
         return redirect(url_for('index'))
     else:
         message = ""
+        name = session['username']
         if request.method=="GET":
-            return render_template('home.html', message=message)
+            return render_template('home.html', message=message, name = name)
         else:
             if request.form['b']=="Logout":
                 print "logout"
-                return redirect(url_for('logout'))
+                return redirect(url_for('logout')
             if request.form['b']=="Submit":
                 title = request.form['title']
                 content = request.form['content']
@@ -97,8 +98,9 @@ def profile():
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
+        name = session['username']
         if request.method=="GET":
-            return render_template('profile.html')
+            return render_template('profile.html', name = name)
         else:
             if request.form['b']=="Logout":
                 print "logout"
@@ -123,12 +125,21 @@ def myitems():
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
+        name = session['username']
         if request.method=="GET":
-            return render_template('myitems.html')
+            return render_template('myitems.html', name = name)
         else:
             if request.form['b']=="Logout":
                 print "logout"
                 return redirect(url_for('logout'))
+            if request.form['b']=="Submit":
+                title = request.form['title']
+                content = request.form['content']
+                price = request.form['price']
+                user = session['username']
+                mongo.add_post(user, title, content, price)
+                posts = mongo.get_posts(user)
+                return render_template('home.html', message=posts)
     
     
 @app.route("/myactivity",methods=['GET','POST'])

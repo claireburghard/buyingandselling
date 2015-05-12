@@ -34,14 +34,8 @@
   </div><!-- /.container-fluid -->
 </nav>
 {% endblock headcontent %}
+
 {% block bodycontent %}
-    <div class="container" style="max-width:730px;">
-      <form method="POST">
-	<p><input type="text" class="form-control" name="title" placeholder="Title"></p>
-	<p><input type="text" class="form-control" name="content" placeholder="Content"></p>
-	<p><input type="text" class="form-control" name="price" placeholder="Price"></p>
-	<input type="submit" name="b" class="btn btn-default" value="Submit">
-      </form>
-    </div><!-- /.container -->
+<h1>Welcome {{ name }}!</h1>
 {% endblock bodycontent %}
 
