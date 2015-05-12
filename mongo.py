@@ -37,21 +37,23 @@ def add_post(username, title, content, price):
         'content': content,
         'price': price,
     }
-    user['post'] = post
-    print "post"
-    print user['post']
-    print "user"
-    print user
-    return "done"
+    name = user['name']
+    password = user['password']
+    username = user['username']
+    db.users.update( {'username':username}, {'name':name, 'password':password, 'username':username, 'post':post} )
+    return
 
 def get_posts(username):
     user = users.find_one({'username':username})
     #post = user.find_one({
     if user == None:
         return "whoops"
-    print 'user'
-    print user
-    return
+    post = user['post']
+    return post
 
-add_post('rebecca','test1','test1','test1')
-print get_posts('rebecca')
+def get_name(username):
+    user = users.find_one({'username':username})
+    if user == None:
+        return "User not found"
+    name = user['name']
+    return name
