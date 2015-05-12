@@ -152,7 +152,20 @@ def messages():
                 print "logout"
                 return redirect(url_for('logout'))
 
-
+@app.route("/viewmessage/<otheruser>", methods=['GET','POST'])
+def viewmessage(otheruser):
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    else:
+        if request.method=="GET":
+            return render_template('viewmessage.html',
+                                   otheruser=otheruser,
+                                   currentuser=session['username'])
+        else:
+            if request.form['b']=="Logout":
+                print "logout"
+                return redirect(url_for('logout'))
+        
     
 @app.route("/logout")
 def logout():
