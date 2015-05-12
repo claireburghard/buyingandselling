@@ -102,7 +102,7 @@ def profile():
 
 @app.route("/market",methods=['GET','POST'])
 def market():
-   if 'username' not in session:
+    if 'username' not in session:
         return redirect(url_for('index'))
     else:
         if request.method=="GET":
@@ -116,7 +116,7 @@ def market():
 
 @app.route("/myitems",methods=['GET','POST'])
 def myitems():
-   if 'username' not in session:
+    if 'username' not in session:
         return redirect(url_for('index'))
     else:
         if request.method=="GET":
@@ -125,8 +125,8 @@ def myitems():
             if request.form['b']=="Logout":
                 print "logout"
                 return redirect(url_for('logout'))
-
-
+    
+    
 @app.route("/myactivity",methods=['GET','POST'])
 def myactivity():
     if 'username' not in session:
@@ -138,8 +138,8 @@ def myactivity():
             if request.form['b']=="Logout":
                 print "logout"
                 return redirect(url_for('logout'))
-
-
+    
+    
 @app.route("/messages",methods=['GET','POST'])
 def messages():
     if 'username' not in session:
