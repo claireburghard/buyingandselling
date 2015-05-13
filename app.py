@@ -70,14 +70,7 @@ def home():
             if request.form['b']=="Logout":
                 print "logout"
                 return redirect(url_for('logout'))
-            if request.form['b']=="Submit":
-                title = request.form['title']
-                content = request.form['content']
-                price = request.form['price']
-                user = session['username']
-                mongo.add_post(user, title, content, price)
-                posts = mongo.get_posts(user)
-                return render_template('home.html', message=posts)
+            
                 
 
 @app.route("/signup", methods=['GET','POST'])
@@ -125,7 +118,14 @@ def myitems():
             if request.form['b']=="Logout":
                 print "logout"
                 return redirect(url_for('logout'))
-    
+            if request.form['b']=="Submit":
+                title = request.form['title']
+                content = request.form['content']
+                price = request.form['price']
+                user = session['username']
+                mongo.add_post(user, title, content, price)
+                posts = mongo.get_posts(user)
+                return render_template('home.html', message=posts)
     
 @app.route("/myactivity",methods=['GET','POST'])
 def myactivity():

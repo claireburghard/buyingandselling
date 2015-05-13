@@ -35,6 +35,7 @@
 </nav>
 {% endblock headcontent %}
 {% block bodycontent %}
+    <div class="container" style="max-width:730px;">
     
 {% endblock bodycontent %}
 
