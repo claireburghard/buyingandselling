@@ -80,7 +80,6 @@ def home():
             return render_template('home.html', message=message)
         else:
             if request.form['b']=="Logout":
-                print "logout"
                 return redirect(url_for('logout'))
             if request.form['b']=="Submit":
                 title = request.form['title']
@@ -110,7 +109,6 @@ def profile():
             return render_template('profile.html')
         else:
             if request.form['b']=="Logout":
-                print "logout"
                 return redirect(url_for('logout'))
 
 @app.route("/market",methods=['GET','POST'])
@@ -122,7 +120,6 @@ def market():
            return render_template('market.html')
        else:
            if request.form['b']=="Logout":
-               print "logout"
                return redirect(url_for('logout'))
 
 
@@ -136,7 +133,6 @@ def myitems():
            return render_template('myitems.html')
        else:
            if request.form['b']=="Logout":
-               print "logout"
                return redirect(url_for('logout'))
 
 
@@ -161,7 +157,6 @@ def messages():
             return render_template('messages.html')
         else:
             if request.form['b']=="Logout":
-                print "logout"
                 return redirect(url_for('logout'))
 
 @app.route("/viewmessage/<otheruser>", methods=['GET','POST'])
@@ -175,7 +170,6 @@ def viewmessage(otheruser):
                                    currentuser=session['username'])
         else:
             if request.form['b']=="Logout":
-                print "logout"
                 return redirect(url_for('logout'))
         
     
