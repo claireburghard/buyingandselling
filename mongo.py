@@ -9,6 +9,7 @@ def add_user(username,password,name):
         'username' : username,
         'password' : password,
         'name' : name,
+        'posts': {},
     }
     return users.insert(user)
 
@@ -29,7 +30,7 @@ def authenticate( username, passw ):
 
 def add_post(username, title, content, price):
     user = users.find_one({'username': username})
-    print user
+   # print user
     if user == None:
         return "Unable to post"
     post = {
@@ -40,15 +41,24 @@ def add_post(username, title, content, price):
     name = user['name']
     password = user['password']
     username = user['username']
-    db.users.update( {'username':username}, {'name':name, 'password':password, 'username':username, 'post':post} )
+    posts = user['posts']
+    #print "HERE"
+    #print posts
+    print post
+    #db.users.update( {'username':username}, {'name':name, 'password':password, 'username':username, 'posts':post} )
+    print user['posts']
+    db.users.user.posts.insert([posts, post])
+    print "HERE"
+    print user['posts']
     return
 
 def get_posts(username):
     user = users.find_one({'username':username})
-    #post = user.find_one({
     if user == None:
-        return "whoops"
-    post = user['post']
+        return "User not found"
+    post = user['posts']
+    if post == None:
+        return "No posts"
     return post
 
 def get_name(username):
@@ -57,3 +67,9 @@ def get_name(username):
         return "User not found"
     name = user['name']
     return name
+
+
+#add_user('testuname','testpass','testname')
+#print get_posts('testuname')
+print add_post('testuname','testtitle','testcontent','testprice')
+print add_post('testuname','test2','test2','test2')
