@@ -3,13 +3,14 @@ from pymongo import MongoClient
 client = MongoClient('localhost', 27017)
 db = client.proj
 users = db.users
+posts = db.posts
 
-def add_user(username,password,name):
+def add_user(username,password,name, bio):
     user = {
         'username' : username,
         'password' : password,
         'name' : name,
-        'posts': {},
+        'bio' : bio,
     }
     return users.insert(user)
 
@@ -28,38 +29,27 @@ def authenticate( username, passw ):
         return "Password and username do not match"
     return "match"
 
-def add_post(username, title, content, price):
-    user = users.find_one({'username': username})
-   # print user
-    if user == None:
-        return "Unable to post"
+def add_post(username, title, content, start_price, time_start, time_ends, tags):
     post = {
+        'username' : username,
         'title': title,
-        'content': content,
-        'price': price,
+        'content' : content,
+        'price' : start_price,
+        'time_start' : time_start,
+        'time_ends' : time_ends,
+        'tags' : tags,
     }
-    name = user['name']
-    password = user['password']
-    username = user['username']
-    posts = user['posts']
-    #print "HERE"
-    #print posts
-    print post
-    #db.users.update( {'username':username}, {'name':name, 'password':password, 'username':username, 'posts':post} )
-    print user['posts']
-    db.users.user.posts.insert([posts, post])
-    print "HERE"
-    print user['posts']
-    return
+    #print post
+    return posts.insert(post)
 
 def get_posts(username):
-    user = users.find_one({'username':username})
-    if user == None:
-        return "User not found"
-    post = user['posts']
-    if post == None:
-        return "No posts"
-    return post
+    result = []
+    counter = 0
+    for post in  posts.find({'username':username}):
+        counter = counter + 1
+        result.append(post)
+        #print counter
+    return result
 
 def get_name(username):
     user = users.find_one({'username':username})
@@ -68,8 +58,51 @@ def get_name(username):
     name = user['name']
     return name
 
+def get_password(username):
+    user = users.find_one({'username':username})
+    if user == None:
+        return "User not found"
+    password = user['password']
+    return password
 
-#add_user('testuname','testpass','testname')
-#print get_posts('testuname')
-print add_post('testuname','testtitle','testcontent','testprice')
-print add_post('testuname','test2','test2','test2')
+def get_bio(username):
+    user = users.find_one({'username':username})
+    if user == None:
+        return "User not found"
+    bio = user['bio']
+    return bio
+
+def update_name(username, new_name):
+    user = users.find_one({'username':username})
+    uname = user['username']
+    name = user['name']
+    password = user['password']
+    bio = user['bio']
+    db.users.update( {'username': username}, {'username': username, 'name':new_name, 'password': password, 'bio':bio} )
+    return
+    
+
+def update_password(username):
+    pass
+
+def update_bio(username):
+    pass
+change attributes
+
+print "1"
+#add_post('rebecca','testing','testing','$$','early','late')
+print
+print
+print "2"
+#add_post('rebecca','test2','test2','$','soon','not soon')
+print
+print
+print "3"
+#print get_posts('rebecca')
+print
+print
+print "4"
+#print get_posts('lol')
+
+#db.posts.remove()
+#print db.posts
