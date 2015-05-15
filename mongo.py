@@ -58,12 +58,12 @@ def add_message(username, otheruser, content):
     ouser = users.find_one({'username':otheruser})
     if user == None or ouser == None:
         return "unable to message"
-   
     message = {
         'otheruser': otheruser,
         'content': content,
     }
     user['message'] = message
+
 
 add_post('rebecca','test1','test1','test1')
 print get_posts('rebecca')
