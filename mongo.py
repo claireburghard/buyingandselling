@@ -5,6 +5,7 @@ db = client.proj
 users = db.users
 posts = db.posts
 
+##### USER #####
 def add_user(username,password,name, bio):
     user = {
         'username' : username,
@@ -28,28 +29,6 @@ def authenticate( username, passw ):
     elif user['password'] != passw:
         return "Password and username do not match"
     return "match"
-
-def add_post(username, title, content, start_price, time_start, time_ends, tags):
-    post = {
-        'username' : username,
-        'title': title,
-        'content' : content,
-        'price' : start_price,
-        'time_start' : time_start,
-        'time_ends' : time_ends,
-        'tags' : tags,
-    }
-    #print post
-    return posts.insert(post)
-
-def get_posts(username):
-    result = []
-    counter = 0
-    for post in  posts.find({'username':username}):
-        counter = counter + 1
-        result.append(post)
-        #print counter
-    return result
 
 def get_name(username):
     user = users.find_one({'username':username})
@@ -75,22 +54,62 @@ def get_bio(username):
 def update_name(username, new_name):
     user = users.find_one({'username':username})
     uname = user['username']
-    name = user['name']
+    #name = user['name']
     password = user['password']
     bio = user['bio']
     db.users.update( {'username': username}, {'username': username, 'name':new_name, 'password': password, 'bio':bio} )
     return
-    
 
-def update_password(username):
-    pass
+def update_password(username, new_pass):
+    user = users.find_one({'username':username})
+    uname = user['username']
+    name = user['name']
+    #password = user['password']
+    bio = user['bio']
+    db.users.update( {'username': username}, {'username': username, 'name':new_name, 'password': new_pass, 'bio':bio} )
+    return
 
-def update_bio(username):
-    pass
-change attributes
+def update_bio(username, new_bio):
+    user = users.find_one({'username':username})
+    uname = user['username']
+    name = user['name']
+    password = user['password']
+    #bio = user['bio']
+    db.users.update( {'username': username}, {'username': username, 'name':name, 'password': password, 'bio':new_bio} )
+    return
+
+##### ^^^^^ USER ^^^^^ #####
+
+##### POSTS #####
+def add_post(username, title, content, start_price, time_start, time_ends, tags):
+    post = {
+        'username' : username,
+        'title': title,
+        'content' : content,
+        'price' : start_price,
+        'time_start' : time_start,
+        'time_ends' : time_ends,
+        'tags' : tags,
+    }
+    #print post
+    return posts.insert(post)
+
+def get_posts(username):
+    result = []
+    counter = 0
+    for post in  posts.find({'username':username}):
+        counter = counter + 1
+        result.append(post)
+        #print counter
+    return result
+
+##### ^^^^^ POSTS ^^^^^ #####
 
 print "1"
+#add_user('rebecca','rebecca','rebecca','my life')
 #add_post('rebecca','testing','testing','$$','early','late')
+#update_name('rebecca','rebecca')
+#print get_name('rebecca')
 print
 print
 print "2"
@@ -105,4 +124,5 @@ print "4"
 #print get_posts('lol')
 
 #db.posts.remove()
+#db.users.remove()
 #print db.posts
