@@ -86,7 +86,9 @@ def add_post(username, title, content, start_price, time_start, time_ends, tags)
         'username' : username,
         'title': title,
         'content' : content,
+        #price attribute will keep changing based on what the highest bid is
         'price' : start_price,
+        'highest_bidder': None, #this will be someones username
         'time_start' : time_start,
         'time_ends' : time_ends,
         'tags' : tags,
@@ -103,7 +105,36 @@ def get_posts(username):
         #print counter
     return result
 
+def bid(bidder_uname, poster_uname, post_title, new_price):
+    post = posts.find_one({'username':poster_uname, 'title':post_title})
+    
+    username = post['username']
+    title = post['title']
+    content = post['content']
+    time_start = post['time_start']
+    time_ends = post['time_ends']
+    tags = post['tags']
+    
+    db.posts.update({'username':username, 'title':title},
+                    {'username': username,
+                     'title': title,
+                     'content': content,
+                     'price': new_price,
+                     'highest_bidder': bidder_uname,
+                     'time_start': time_start,
+                     'time_ends': time_ends,
+                     'tags':tags,
+                     })
+
+    return 
 ##### ^^^^^ POSTS ^^^^^ #####
+
+##### TESTING #####
+
+#the way the function calls work
+#def add_user(username,password,name, bio)
+#def add_post(username, title, content, start_price, time_start, time_ends, tags)
+#def bid(bidder_uname, poster_uname, post_title, new_price)
 
 print "1"
 #add_user('rebecca','rebecca','rebecca','my life')
@@ -113,7 +144,8 @@ print "1"
 print
 print
 print "2"
-#add_post('rebecca','test2','test2','$','soon','not soon')
+#add_post('rebecca','title','content','$','soon','not soon','tags and stuff')
+#bid('other_person','rebecca','title','$$')
 print
 print
 print "3"
