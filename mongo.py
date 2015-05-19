@@ -4,6 +4,7 @@ client = MongoClient('localhost', 27017)
 db = client.proj
 users = db.users
 posts = db.posts
+messages = db.messages
 
 ##### USER #####
 def add_user(username,password,name, bio):
@@ -128,6 +129,29 @@ def bid(bidder_uname, poster_uname, post_title, new_price):
 
     return 
 ##### ^^^^^ POSTS ^^^^^ #####
+
+##### MESSAGING #####
+def add_conversation(person1, person2, messages): #wasn't quite sure what fields we want/need
+    conversation = {
+        'person1' : person1,
+        'person2' : person2,
+        'messages' : messages,
+        }
+    return messages.insert(conversation)
+
+def add_message(person1, person2, new_message):
+    conversation = messages.find_one({'person1': person1, 'person2': person2})
+    p1 = conversation['person1']
+    p2 = conversation['person2']
+    messages = conversation['messages']
+    messages = messages.insert(0, new_message) #adds to the front of the list
+    db.messages.update( {
+        'person1':p1,
+        'person2': p2,
+        'messages': messages } )
+    return
+
+##### ^^^^^ MESSAGING ^^^^^ #####
 
 ##### TESTING #####
 
