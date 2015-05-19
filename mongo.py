@@ -115,6 +115,10 @@ def bid(bidder_uname, poster_uname, post_title, new_price):
     time_start = post['time_start']
     time_ends = post['time_ends']
     tags = post['tags']
+    price = post['price']
+
+    if new_price <= price:
+        return "new price must be higher than old price"
     
     db.posts.update({'username':username, 'title':title},
                     {'username': username,
