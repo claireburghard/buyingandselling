@@ -1,4 +1,4 @@
-3from flask import Flask, flash,  render_template, request, redirect, url_for, session, escape
+from flask import Flask, flash,  render_template, request, redirect, url_for, session, escape
 
 import mongo
 
@@ -108,7 +108,7 @@ def profile():
 def market():
     if 'username' not in session:
         return redirect(url_for('index'))
-   else:
+    else:
        if request.method=="GET":
            return render_template('market.html')
        else:
@@ -132,7 +132,12 @@ def myitems():
                 content = request.form['content']
                 price = request.form['price']
                 user = session['username']
-                mongo.add_post(user, title, content, price)
+                currtime="timenow"
+                timeends=request.form['time']
+                tags=request.form['tags']
+                if (title == "" or content == "" or price == "" or timeends == "" or tags == ""):
+                    return render_template("myitems.html", message = "Please fill in all fields correctly.")
+                mongo.add_post(user, title, content, price,currtime,timeends,tags)
                 posts = mongo.get_posts(user)
                 return render_template('home.html', message=posts)
             
