@@ -81,14 +81,7 @@ def home():
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
-            if request.form['b']=="Submit":
-                title = request.form['title']
-                content = request.form['content']
-                price = request.form['price']
-                user = session['username']
-                mongo.add_post(user, title, content, price)
-                posts = mongo.get_posts(user)
-                return render_template('home.html', message=posts)
+            
                 
 
 @app.route("/signup", methods=['GET','POST'])
@@ -113,7 +106,7 @@ def profile():
 
 @app.route("/market",methods=['GET','POST'])
 def market():
-   if 'username' not in session:
+    if 'username' not in session:
         return redirect(url_for('index'))
    else:
        if request.method=="GET":
@@ -126,16 +119,23 @@ def market():
 
 @app.route("/myitems",methods=['GET','POST'])
 def myitems():
-   if 'username' not in session:
+    if 'username' not in session:
         return redirect(url_for('index'))
-   else:
-       if request.method=="GET":
-           return render_template('myitems.html')
-       else:
-           if request.form['b']=="Logout":
-               return redirect(url_for('logout'))
-
-
+    else:
+        if request.method=="GET":
+            return render_template('myitems.html')
+        else:
+            if request.form['b']=="Logout":
+                return redirect(url_for('logout'))
+            if request.form['b']=="Submit":
+                title = request.form['title']
+                content = request.form['content']
+                price = request.form['price']
+                user = session['username']
+                mongo.add_post(user, title, content, price)
+                posts = mongo.get_posts(user)
+                return render_template('home.html', message=posts)
+            
 @app.route("/myactivity",methods=['GET','POST'])
 def myactivity():
     if 'username' not in session:
@@ -146,8 +146,8 @@ def myactivity():
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
-
-
+    
+    
 @app.route("/messages",methods=['GET','POST'])
 def messages():
     if 'username' not in session:

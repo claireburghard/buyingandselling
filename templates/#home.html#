@@ -10,20 +10,17 @@
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <a class="navbar-brand" href="#">Buying & Selling</a>
+      <a class="navbar-brand" href="{{ url_for('home') }}">Buying and Selling</a>
     </div>
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-
       <ul class="nav navbar-nav">
-	<li><a href="http://127.0.0.1:5000/profile">Profile</a></li>
-	<li><a href="http://127.0.0.1:5000/market">Market</a></li>
-	<li><a href="http://127.0.0.1:5000/myitems">My Items</a></li>
-	<li><a href="http://127.0.0.1:5000/myactivity">My Activity</a></li>
-	<li><a href="http://127.0.0.1:5000/messages">Messages</a></li>
+	<li><a href="{{ url_for('profile') }}">Profile</a></li>
+	<li><a href="{{ url_for('market') }}">Market</a></li>
+	<li><a href="{{ url_for('myitems') }}">My Items</a></li>
+	<li><a href="{{ url_for('myactivity') }}">My Activity</a></li>
+	<li><a href="{{ url_for('messages') }}">Messages</a></li>
       </ul>
-
-
       <ul class="nav pull-right">
 	<form class="navbar-form navbar-left" role="search" method="POST">
           <div class="form-group">
@@ -36,16 +33,9 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
-{%endblock headcontent %}
-
+{% endblock headcontent %}
 {% block bodycontent %}
-<div class="container" style="max-width:730px;">
-  <form method="POST">
-    <p><input type="text" class="form-control" name="title" placeholder="Title"></p>
-    <p><input type="text" class="form-control" name="content" placeholder="Content"></p>
-    <p><input type="text" class="form-control" name="price" placeholder="Price"></p>
-    <input type="submit" name="b" class="btn btn-default" value="Submit">
-  </form>
-</div>
+    <div class="container" style="max-width:730px;">
+    
+{% endblock bodycontent %}
 
-{%endblock bodycontent %}
