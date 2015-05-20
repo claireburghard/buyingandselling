@@ -45,13 +45,14 @@ def register():
             username = request.form["regusername"]
             password = request.form["regpassword"]
             password2 = request.form["regpassword2"]
+            bio = request.form['bio']
             name = request.form["name"]
             if mongo.user_exists(username) == "exists":
                 message = "Someone already has this username. Please use a different one."
                 return render_template("register.html", message=message)
             else:
                 if password == password2:
-                    mongo.add_user(username,password,name)
+                    mongo.add_user(username, password, name, bio)
                     message = "Registration sucessful! Log in to get started."
                     return  redirect(url_for('signup'))
                 else:
