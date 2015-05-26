@@ -5,6 +5,7 @@ import mongo
 app = Flask(__name__)
 app.secret_key = 'secret'
 
+
 @app.route("/", methods=['GET','POST'])
 @app.route("/index", methods=['GET','POST'])
 def index():
@@ -13,6 +14,7 @@ def index():
         return redirect(url_for('home'))
     else:
         return render_template("index.html", message=message)
+
 
 @app.route("/login", methods=['GET','POST'])
 def login():
@@ -33,6 +35,7 @@ def login():
                 session['username'] = username
                 return redirect(url_for('home'))
 
+
 @app.route("/register",methods=['GET','POST'])
 def register():
     if 'username' in session:
@@ -51,12 +54,13 @@ def register():
                 return render_template("register.html", message=message)
             else:
                 if password == password2:
-                    mongo.add_user(username,password,name)
+                    mongo.add_user(username,password,name,"")
                     message = "Registration sucessful! Log in to get started."
                     return  redirect(url_for('signup'))
                 else:
                     message = "Please make sure your passwords match."
                     return render_template("register.html", message=message)
+
 
 @app.route("/home",methods=['GET','POST'])
 def home():
@@ -70,8 +74,7 @@ def home():
             if request.form['b']=="Logout":
                 print "logout"
                 return redirect(url_for('logout'))
-            
-                
+
 
 @app.route("/signup", methods=['GET','POST'])
 def signup():
@@ -92,6 +95,7 @@ def profile():
             if request.form['b']=="Logout":
                 print "logout"
                 return redirect(url_for('logout'))
+
 
 @app.route("/market",methods=['GET','POST'])
 def market():
