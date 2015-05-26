@@ -54,7 +54,7 @@ def register():
                 return render_template("register.html", message=message)
             else:
                 if password == password2:
-                    mongo.add_user(username,password,name)
+                    mongo.add_user(username,password,name,"")
                     message = "Registration sucessful! Log in to get started."
                     return  redirect(url_for('signup'))
                 else:
@@ -74,15 +74,7 @@ def home():
         else:
             if request.form['b']=="Logout":
                 print "logout"
-                return redirect(url_for('logout')
-            if request.form['b']=="Submit":
-                title = request.form['title']
-                content = request.form['content']
-                price = request.form['price']
-                user = session['username']
-                mongo.add_post(user, title, content, price)
-                posts = mongo.get_posts(user)
-                return render_template('home.html', message=posts)
+                return redirect(url_for('logout'))
 
 
 @app.route("/signup", methods=['GET','POST'])
@@ -140,7 +132,7 @@ def myitems():
                 mongo.add_post(user, title, content, price)
                 posts = mongo.get_posts(user)
                 return render_template('home.html', message=posts)
-    
+
     
 @app.route("/myactivity",methods=['GET','POST'])
 def myactivity():
