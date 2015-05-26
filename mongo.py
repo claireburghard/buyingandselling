@@ -92,7 +92,8 @@ def add_post(username, title, content, start_price, time_start, time_ends, tags)
         'highest_bidder': None, #this will be someones username
         'time_start' : time_start,
         'time_ends' : time_ends,
-        'tags' : tags,
+        'tags_string':tags.lower(),
+        'tags_array':tags.lower().split(", ")
     }
     #print post
     return posts.insert(post)
@@ -163,26 +164,14 @@ def add_message(person1, person2, new_message):
 #def add_user(username,password,name, bio)
 #def add_post(username, title, content, start_price, time_start, time_ends, tags)
 #def bid(bidder_uname, poster_uname, post_title, new_price)
-
-print "1"
 #add_user('rebecca','rebecca','rebecca','my life')
 #add_post('rebecca','testing','testing','$$','early','late')
 #update_name('rebecca','rebecca')
 #print get_name('rebecca')
-print
-print
-print "2"
 #add_post('rebecca','title','content','$','soon','not soon','tags and stuff')
 #bid('other_person','rebecca','title','$$')
-print
-print
-print "3"
 #print get_posts('rebecca')
-print
-print
-print "4"
 #print get_posts('lol')
-
 #db.posts.remove()
 #db.users.remove()
 #print db.posts

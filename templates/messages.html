@@ -1,5 +1,25 @@
 {% extends "home.html" %}
 
 {% block bodycontent %}
-<h1>MESSAGES PAGE</h1>
+<h1>Messages</h1>
+
+
+<ul>
+<li>shows all messages with distinguishing between new & read messages</li>
+<li>clickthrough to view message log with ability to send response</li>
+</ul>
+
+<div class="panel panel-default">
+  <div class="list-group">
+    
+    <a href="/viewmessage/username" class="list-group-item">
+      <span class="badge">0</span>
+      <h4 class="list-group-item-heading">Username</h4>
+    <p class="list-group-item-text">last message read</p>
+    </a>
+
+  </div><!--/.list-group-->
+</div><!--/.panel---->
+
+
 {% endblock bodycontent %}

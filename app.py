@@ -6,6 +6,18 @@ app = Flask(__name__)
 app.secret_key = 'secret'
 
 
+def authenticate(page):
+    def decorate(f):
+        @wraps(f)
+        def inner(*args):
+            if 'username' not in session:
+                flash("You need to be logged in to see that!")
+                session['nextpage'] = page
+                return redirect(url_for("login"))
+            return f(*args)
+        return inner
+    return decorate
+
 @app.route("/", methods=['GET','POST'])
 @app.route("/index", methods=['GET','POST'])
 def index():
@@ -55,7 +67,7 @@ def register():
             else:
                 if password == password2:
                     mongo.add_user(username,password,name,"")
-                    message = "Registration sucessful! Log in to get started."
+                    session['username'] = username
                     return  redirect(url_for('signup'))
                 else:
                     message = "Please make sure your passwords match."
@@ -73,7 +85,6 @@ def home():
             return render_template('home.html', message=message, name = name)
         else:
             if request.form['b']=="Logout":
-                print "logout"
                 return redirect(url_for('logout'))
 
 
@@ -82,7 +93,8 @@ def signup():
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
-        return render_template('signup.html')
+        if request.method=="GET":
+            return render_template('signup.html')
 
 
 @app.route("/profile",methods=['GET','POST'])
@@ -95,7 +107,6 @@ def profile():
             return render_template('profile.html', name = name)
         else:
             if request.form['b']=="Logout":
-                print "logout"
                 return redirect(url_for('logout'))
 
 
@@ -104,12 +115,11 @@ def market():
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
-        if request.method=="GET":
-            return render_template('market.html')
-        else:
-            if request.form['b']=="Logout":
-                print "logout"
-                return redirect(url_for('logout'))
+       if request.method=="GET":
+           return render_template('market.html')
+       else:
+           if request.form['b']=="Logout":
+               return redirect(url_for('logout'))
 
 
 @app.route("/myitems",methods=['GET','POST'])
@@ -122,18 +132,22 @@ def myitems():
             return render_template('myitems.html', name = name)
         else:
             if request.form['b']=="Logout":
-                print "logout"
                 return redirect(url_for('logout'))
             if request.form['b']=="Submit":
                 title = request.form['title']
                 content = request.form['content']
                 price = request.form['price']
                 user = session['username']
-                mongo.add_post(user, title, content, price)
+                currtime="timenow"
+                timeends=request.form['time']
+                tags=request.form['tags']
+                if (title == "" or content == "" or price == "" or timeends == "" or tags == ""):
+                    return render_template("myitems.html", message = "Please fill in all fields correctly.")
+                mongo.add_post(user, title, content, price,currtime,timeends,tags)
                 posts = mongo.get_posts(user)
                 return render_template('home.html', message=posts)
 
-    
+
 @app.route("/myactivity",methods=['GET','POST'])
 def myactivity():
     if 'username' not in session:
@@ -143,7 +157,6 @@ def myactivity():
             return render_template('myactivity.html')
         else:
             if request.form['b']=="Logout":
-                print "logout"
                 return redirect(url_for('logout'))
 
 
@@ -156,10 +169,21 @@ def messages():
             return render_template('messages.html')
         else:
             if request.form['b']=="Logout":
-                print "logout"
                 return redirect(url_for('logout'))
 
-
+@app.route("/viewmessage/<otheruser>", methods=['GET','POST'])
+def viewmessage(otheruser):
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    else:
+        if request.method=="GET":
+            return render_template('viewmessage.html',
+                                   otheruser=otheruser,
+                                   currentuser=session['username'])
+        else:
+            if request.form['b']=="Logout":
+                return redirect(url_for('logout'))
+        
     
 @app.route("/logout")
 def logout():
