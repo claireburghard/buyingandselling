@@ -58,7 +58,11 @@ def update_name(username, new_name):
     #name = user['name']
     password = user['password']
     bio = user['bio']
-    db.users.update( {'username': username}, {'username': username, 'name':new_name, 'password': password, 'bio':bio} )
+    db.users.update( {'username': username}, {
+        'username': username,
+        'name' : new_name,
+        'password' : password,
+        'bio' : bio} )
     return
 
 def update_password(username, new_pass):
@@ -67,7 +71,11 @@ def update_password(username, new_pass):
     name = user['name']
     #password = user['password']
     bio = user['bio']
-    db.users.update( {'username': username}, {'username': username, 'name':new_name, 'password': new_pass, 'bio':bio} )
+    db.users.update( {'username': username}, {
+        'username': username,
+        'name' : new_name,
+        'password' : new_pass,
+        'bio' : bio} )
     return
 
 def update_bio(username, new_bio):
@@ -76,7 +84,11 @@ def update_bio(username, new_bio):
     name = user['name']
     password = user['password']
     #bio = user['bio']
-    db.users.update( {'username': username}, {'username': username, 'name':name, 'password': password, 'bio':new_bio} )
+    db.users.update( {'username': username}, {
+        'username': username,
+        'name' : name,
+        'password': password,
+        'bio' : new_bio} )
     return
 
 ##### ^^^^^ USER ^^^^^ #####
@@ -141,20 +153,38 @@ def add_conversation(person1, person2, messages): #wasn't quite sure what fields
         'person2' : person2,
         'messages' : messages,
         }
-    return messages.insert(conversation)
+    return db.messages.insert(conversation)
 
 def add_message(person1, person2, new_message):
     conversation = messages.find_one({'person1': person1, 'person2': person2})
+    if conversation == None:
+        #checks to see if the names are in a different order
+        conversation = messages.find_one({'person1': person2, 'person2': person1})
+    if conversation == None:
+        return "users not found"
+    print conversation
     p1 = conversation['person1']
     p2 = conversation['person2']
-    messages = conversation['messages']
-    messages = messages.insert(0, new_message) #adds to the front of the list
-    db.messages.update( {
+    mess = conversation['messages']
+    print mess
+    #mess = mess.insert(0, new_message) #adds to the front of the list
+    db.messages.update( {'person1':p1, 'person2':p2}, {
         'person1':p1,
         'person2': p2,
-        'messages': messages } )
+        'messages': mess } )
     return
 
+def get_messages(person1, person2):
+    conversation = messages.find_one({'person1':person1, 'person2':person2})
+    print conversation
+    if conversation == None:
+        conversation = messages.find_one({'person1':person2, 'person2':person1})
+    if conversation == None:
+         return "users not found"
+
+    print conversation
+    mess = conversation['messages']
+    return mess
 ##### ^^^^^ MESSAGING ^^^^^ #####
 
 ##### TESTING #####
@@ -163,17 +193,20 @@ def add_message(person1, person2, new_message):
 #def add_user(username,password,name, bio)
 #def add_post(username, title, content, start_price, time_start, time_ends, tags)
 #def bid(bidder_uname, poster_uname, post_title, new_price)
+#def add_conversation(person1, person2, messages)
+#def add_message(person1, person2, new_message)
+#def update_name(username, new_name)
 
 print "1"
-#add_user('rebecca','rebecca','rebecca','my life')
-#add_post('rebecca','testing','testing','$$','early','late')
-#update_name('rebecca','rebecca')
-#print get_name('rebecca')
 print
 print
 print "2"
-#add_post('rebecca','title','content','$','soon','not soon','tags and stuff')
-#bid('other_person','rebecca','title','$$')
+#add_conversation('rebecca','rfriend',['hello','hi'])
+print get_messages('rebecca','rfriend')
+#add_message('rebecca','rfriend','numba 1')
+#add_message('rfriend','rebecca','numba 2')
+#print get_messages('rebecca','rfriend')
+#print get_messages('rfriend','rebecca')
 print
 print
 print "3"
@@ -186,3 +219,4 @@ print "4"
 #db.posts.remove()
 #db.users.remove()
 #print db.posts
+db.messages.remove()

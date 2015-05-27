@@ -48,6 +48,7 @@ def register():
             username = request.form["regusername"]
             password = request.form["regpassword"]
             password2 = request.form["regpassword2"]
+            bio = request.form['bio']
             name = request.form["name"]
             if mongo.user_exists(username) == "exists":
                 message = "Someone already has this username. Please use a different one."
