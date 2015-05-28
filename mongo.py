@@ -176,12 +176,15 @@ def add_message(person1, person2, new_message):
 
 def get_messages(person1, person2):
     conversation = messages.find_one({'person1':person1, 'person2':person2})
+    print 1
     print conversation
+    
     if conversation == None:
         conversation = messages.find_one({'person1':person2, 'person2':person1})
     if conversation == None:
          return "users not found"
 
+    print 2
     print conversation
     mess = conversation['messages']
     return mess
@@ -201,12 +204,12 @@ print "1"
 print
 print
 print "2"
-#add_conversation('rebecca','rfriend',['hello','hi'])
+add_conversation('rebecca','rfriend',['hello','hi'])
 print get_messages('rebecca','rfriend')
-#add_message('rebecca','rfriend','numba 1')
+add_message('rebecca','rfriend','numba 1')
 #add_message('rfriend','rebecca','numba 2')
 #print get_messages('rebecca','rfriend')
-#print get_messages('rfriend','rebecca')
+print get_messages('rfriend','rebecca')
 print
 print
 print "3"
@@ -219,4 +222,4 @@ print "4"
 #db.posts.remove()
 #db.users.remove()
 #print db.posts
-db.messages.remove()
+#db.messages.remove()
