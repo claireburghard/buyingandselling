@@ -2,12 +2,21 @@
 
 {% block bodycontent %}
 <h1>MY ITEMS PAGE</h1>
+
+{{ message }}
+
 <div class="container" style="max-width:730px;">
       <form method="POST">
 	<p><input type="text" class="form-control" name="title" placeholder="Title"></p>
 	<p><input type="text" class="form-control" name="content" placeholder="Content"></p>
-	<p><input type="text" class="form-control" name="price" placeholder="Price"></p>
+	<p><input type="text" class="form-control" name="star_price" placeholder="Start Price"></p>
+	<p><input type="text" class="form-control" name="time_start" placeholder="Time Start"></p>
+	<p><input type="text" class="form-control" name="time_ends" placeholder="Time Ends"></p>
+	<p><input type="text" class="form-control" name="tags" placeholder="Tags"></p>
 	<input type="submit" name="b" class="btn btn-default" value="Submit">
       </form>
     </div><!-- /.container -->
 {% endblock bodycontent %}
+
+
+username, title, content, start_price, time_start, time_ends, tags

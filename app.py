@@ -5,7 +5,6 @@ import mongo
 app = Flask(__name__)
 app.secret_key = 'secret'
 
-
 @app.route("/", methods=['GET','POST'])
 @app.route("/index", methods=['GET','POST'])
 def index():
@@ -14,7 +13,6 @@ def index():
         return redirect(url_for('home'))
     else:
         return render_template("index.html", message=message)
-
 
 @app.route("/login", methods=['GET','POST'])
 def login():
@@ -35,7 +33,6 @@ def login():
                 session['username'] = username
                 return redirect(url_for('home'))
 
-
 @app.route("/register",methods=['GET','POST'])
 def register():
     if 'username' in session:
@@ -55,13 +52,12 @@ def register():
                 return render_template("register.html", message=message)
             else:
                 if password == password2:
-                    mongo.add_user(username,password,name,"")
+                    mongo.add_user(username, password, name, bio)
                     message = "Registration sucessful! Log in to get started."
                     return  redirect(url_for('signup'))
                 else:
                     message = "Please make sure your passwords match."
                     return render_template("register.html", message=message)
-
 
 @app.route("/home",methods=['GET','POST'])
 def home():
@@ -75,7 +71,8 @@ def home():
             if request.form['b']=="Logout":
                 print "logout"
                 return redirect(url_for('logout'))
-
+            
+                
 
 @app.route("/signup", methods=['GET','POST'])
 def signup():
@@ -97,7 +94,6 @@ def profile():
                 print "logout"
                 return redirect(url_for('logout'))
 
-
 @app.route("/market",methods=['GET','POST'])
 def market():
     if 'username' not in session:
@@ -117,20 +113,24 @@ def myitems():
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
+        message = ""
         if request.method=="GET":
-            return render_template('myitems.html')
+            return render_template('myitems.html', message=message)
         else:
             if request.form['b']=="Logout":
                 print "logout"
                 return redirect(url_for('logout'))
             if request.form['b']=="Submit":
+                user = session['username']
                 title = request.form['title']
                 content = request.form['content']
-                price = request.form['price']
-                user = session['username']
-                mongo.add_post(user, title, content, price)
+                start_price = request.form['start_price']
+                time_start = request.form['time_start']
+                time_ends = request.form['time_ends']
+                tags = request.form['tags']
+                mongo.add_post(user, title, content, star_price, time_start, time_end, tags)
                 posts = mongo.get_posts(user)
-                return render_template('home.html', message=posts)
+                return render_template('myitems.html', message=posts)
     
 @app.route("/myactivity",methods=['GET','POST'])
 def myactivity():
