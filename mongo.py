@@ -13,6 +13,8 @@ def add_user(username,password,name, bio):
         'password' : password,
         'name' : name,
         'bio' : bio,
+        'rating' : 4,
+        'ratings' : 2,
     }
     return users.insert(user)
 
@@ -52,6 +54,13 @@ def get_bio(username):
     bio = user['bio']
     return bio
 
+def get_rating(username):
+    user = users.find_one({'username':username})
+    if user == None:
+        return "User not found"
+    rating = user['rating']
+    return rating
+
 def update_name(username, new_name):
     user = users.find_one({'username':username})
     uname = user['username']
@@ -89,6 +98,43 @@ def update_bio(username, new_bio):
         'name' : name,
         'password': password,
         'bio' : new_bio} )
+    return
+
+def rate(username, new_rating):
+    user = users.find_one({'username':username})
+    
+    uname = user['username']
+    name = user['name']
+    password = user['password']
+    bio = user['bio']
+    rating = user['rating']
+    ratings = user['ratings']
+    #print ratings + 1
+    
+    '''if rating == 0: #never been rated before
+        db.users.update( {'username': username}, {
+            'username': username,
+            'name' : name,
+            'password': password,
+            'bio' : bio,
+            'rating' : new_rating,
+            'ratings' : ratings + 1} )
+        return'''
+
+    total = rating * ratings
+    print total
+    total = total + new_rating
+    print total
+    new_num = ratings + 1
+    print new_num
+    av = total/new_num
+    print av
+    '''db.users.update( {'username': username}, {
+        'username': username,
+        'name' : name,
+        'password': password,
+        'bio' : bio
+        'rating' : new_rating} )'''
     return
 
 ##### ^^^^^ USER ^^^^^ #####
@@ -203,23 +249,29 @@ def get_messages(person1, person2):
 print "1"
 print
 print
+#add_user("rebecca",'rebecca','rebecca','my life')
+print get_rating('rebecca')
 print "2"
-add_conversation('rebecca','rfriend',['hello','hi'])
-print get_messages('rebecca','rfriend')
-add_message('rebecca','rfriend','numba 1')
+print
+#print rate('rebecca',4)
+#add_conversation('rebecca','rfriend',['hello','hi'])
+#print get_messages('rebecca','rfriend')
+#add_message('rebecca','rfriend','numba 1')
 #add_message('rfriend','rebecca','numba 2')
 #print get_messages('rebecca','rfriend')
-print get_messages('rfriend','rebecca')
-print
-print
-print "3"
+#print get_messages('rfriend','rebecca')
+#print
+#print
+#print "3"
 #print get_posts('rebecca')
-print
-print
-print "4"
+#print
+#print
+#print "4"
 #print get_posts('lol')
 
 #db.posts.remove()
-#db.users.remove()
+db.users.remove()
+#print db.users
 #print db.posts
 #db.messages.remove()
+
