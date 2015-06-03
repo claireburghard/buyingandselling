@@ -152,7 +152,7 @@ def add_post(username, title, content, start_price, time_start, time_ends, tags)
         'time_ends' : time_ends,
         'tags' : tags,
     }
-    #print post
+    print post
     return posts.insert(post)
 
 def get_posts(username):
@@ -246,13 +246,13 @@ def get_messages(person1, person2):
 #def add_message(person1, person2, new_message)
 #def update_name(username, new_name)
 
-print "1"
-print
-print
+#print "1"
+#print
+#print
 #add_user("rebecca",'rebecca','rebecca','my life')
-print get_rating('rebecca')
-print "2"
-print
+#print get_rating('rebecca')
+#print "2"
+#print
 #print rate('rebecca',4)
 #add_conversation('rebecca','rfriend',['hello','hi'])
 #print get_messages('rebecca','rfriend')
@@ -270,7 +270,7 @@ print
 #print get_posts('lol')
 
 #db.posts.remove()
-db.users.remove()
+#db.users.remove()
 #print db.users
 #print db.posts
 #db.messages.remove()
