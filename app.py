@@ -128,7 +128,7 @@ def myitems():
                 time_start = request.form['time_start']
                 time_ends = request.form['time_ends']
                 tags = request.form['tags']
-                mongo.add_post(user, title, content, star_price, time_start, time_end, tags)
+                mongo.add_post(user, title, content, start_price, time_start, time_ends, tags)
                 posts = mongo.get_posts(user)
                 return render_template('myitems.html', message=posts)
     

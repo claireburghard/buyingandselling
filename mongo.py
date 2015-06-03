@@ -156,11 +156,21 @@ def add_post(username, title, content, start_price, time_start, time_ends, tags)
     return posts.insert(post)
 
 def get_posts(username):
-    result = []
+    result =""
     counter = 0
     for post in  posts.find({'username':username}):
         counter = counter + 1
-        result.append(post)
+        username = post['username']
+        title = post['title']
+        content = post['content']
+        time_start = post['time_start']
+        time_ends = post['time_ends']
+        tags = post['tags']
+        price = post['price']
+        post_string = "username: " + username + "\n" + "title: " + title + "\n" + "content: " + content + "\n" + "start time: " + time_start + "\n" + "end time: " + time_ends + "\n" + "price: " + price + "\n" + "tags: " + tags
+        print post_string
+        result = result + post_string
+        print result
         #print counter
     return result
 
@@ -247,7 +257,7 @@ def get_messages(person1, person2):
 #def update_name(username, new_name)
 
 #print "1"
-#print
+print get_posts('rebecca')
 #print
 #add_user("rebecca",'rebecca','rebecca','my life')
 #print get_rating('rebecca')
