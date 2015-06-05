@@ -6,18 +6,6 @@ app = Flask(__name__)
 app.secret_key = 'secret'
 
 
-def authenticate(page):
-    def decorate(f):
-        @wraps(f)
-        def inner(*args):
-            if 'username' not in session:
-                flash("You need to be logged in to see that!")
-                session['nextpage'] = page
-                return redirect(url_for("login"))
-            return f(*args)
-        return inner
-    return decorate
-
 @app.route("/", methods=['GET','POST'])
 @app.route("/index", methods=['GET','POST'])
 def index():
@@ -25,8 +13,7 @@ def index():
     if 'username' in session:
         return redirect(url_for('home'))
     else:
-        return render_template("index.html", message=message)
-
+        return render_template("index.html", message = message)
 
 @app.route("/login", methods=['GET','POST'])
 def login():
@@ -35,18 +22,17 @@ def login():
     else:
         message = ""
         if request.method=="GET":
-            return render_template("login.html", message=message)
+            return render_template("login.html", message = message)
         else:
             username = request.form["logusername"]
             password = request.form["logpassword"]
             confirmation = mongo.authenticate(username,password)
             if confirmation != "match":
                 message = confirmation
-                return render_template("login.html", message=message)
+                return render_template("login.html", message = message)
             if confirmation == "match":
                 session['username'] = username
                 return redirect(url_for('home'))
-
 
 @app.route("/register",methods=['GET','POST'])
 def register():
@@ -55,24 +41,24 @@ def register():
     else:
         message = ""
         if request.method=="GET":
-            return render_template("register.html", message=message)
+            return render_template("register.html", message = message)
         else:
             username = request.form["regusername"]
             password = request.form["regpassword"]
             password2 = request.form["regpassword2"]
+            bio = request.form['bio']
             name = request.form["name"]
             if mongo.user_exists(username) == "exists":
                 message = "Someone already has this username. Please use a different one."
-                return render_template("register.html", message=message)
+                return render_template("register.html", message = message)
             else:
                 if password == password2:
-                    mongo.add_user(username,password,name,"")
-                    session['username'] = username
+                    mongo.add_user(username, password, name, bio)
+                    message = "Registration sucessful! Log in to get started."
                     return  redirect(url_for('signup'))
                 else:
                     message = "Please make sure your passwords match."
-                    return render_template("register.html", message=message)
-
+                    return render_template("register.html", message = message)
 
 @app.route("/home",methods=['GET','POST'])
 def home():
@@ -82,11 +68,12 @@ def home():
         message = ""
         name = session['username']
         if request.method=="GET":
-            return render_template('home.html', message=message, name = name)
+            return render_template('home.html', message = message, name = name)
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
-
+            
+                
 
 @app.route("/signup", methods=['GET','POST'])
 def signup():
@@ -109,7 +96,6 @@ def profile():
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
 
-
 @app.route("/market",methods=['GET','POST'])
 def market():
     if 'username' not in session:
@@ -127,26 +113,24 @@ def myitems():
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
-        name = session['username']
+        message = ""
         if request.method=="GET":
-            return render_template('myitems.html', name = name)
+            return render_template('myitems.html', message = message)
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
             if request.form['b']=="Submit":
+                user = session['username']
                 title = request.form['title']
                 content = request.form['content']
-                price = request.form['price']
-                user = session['username']
-                currtime="timenow"
-                timeends=request.form['time']
-                tags=request.form['tags']
-                if (title == "" or content == "" or price == "" or timeends == "" or tags == ""):
-                    return render_template("myitems.html", message = "Please fill in all fields correctly.")
-                mongo.add_post(user, title, content, price,currtime,timeends,tags)
+                start_price = request.form['start_price']
+                time_start = request.form['time_start']
+                time_ends = request.form['time_ends']
+                tags = request.form['tags']
+                mongo.add_post(user, title, content, start_price, time_start, time_ends, tags)
                 posts = mongo.get_posts(user)
-                return render_template('home.html', message=posts)
-
+                return render_template('myitems.html', message=posts)
+    
 
 @app.route("/myactivity",methods=['GET','POST'])
 def myactivity():
