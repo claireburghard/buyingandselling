@@ -170,7 +170,7 @@ def get_posts(username):
         price = post['price']
         post_string = "username: " + username + "\n" + "title: " + title + "\n" + "content: " + content + "\n" + "start time: " + time_start + "\n" + "end time: " + time_ends + "\n" + "price: " + price + "\n" + "tags: " + tags
         print post_string
-        result = result + post_string
+        result = post_string + result
         print result
         #print counter
     return result
