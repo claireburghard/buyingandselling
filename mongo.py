@@ -7,7 +7,7 @@ posts = db.posts
 messages = db.messages
 
 ##### USER #####
-def add_user(username,password,name, bio):
+def add_user( username, password, name, bio ):
     user = {
         'username' : username,
         'password' : password,
@@ -253,15 +253,6 @@ def get_messages(person1, person2):
 #def add_user(username,password,name, bio)
 #def add_post(username, title, content, start_price, time_start, time_ends, tags)
 #def bid(bidder_uname, poster_uname, post_title, new_price)
-<<<<<<< HEAD
-#add_user('rebecca','rebecca','rebecca','my life')
-#add_post('rebecca','testing','testing','$$','early','late')
-#update_name('rebecca','rebecca')
-#print get_name('rebecca')
-#add_post('rebecca','title','content','$','soon','not soon','tags and stuff')
-#bid('other_person','rebecca','title','$$')
-#print get_posts('rebecca')
-=======
 #def add_conversation(person1, person2, messages)
 #def add_message(person1, person2, new_message)
 #def update_name(username, new_name)
@@ -287,7 +278,6 @@ print get_posts('rebecca')
 #print
 #print
 #print "4"
->>>>>>> rebecca
 #print get_posts('lol')
 #db.posts.remove()
 #db.users.remove()
