@@ -109,7 +109,7 @@ def rate(username, new_rating):
     bio = user['bio']
     rating = user['rating']
     ratings = user['ratings']
-    #print ratings + 1
+    print ratings + 1
     
     '''if rating == 0: #never been rated before
         db.users.update( {'username': username}, {
@@ -152,7 +152,7 @@ def add_post(username, title, content, start_price, time_start, time_ends, tags)
         'time_ends' : time_ends,
         'tags' : tags,
     }
-    print post
+    #print post
     return posts.insert(post)
 
 def get_posts(username):
@@ -168,9 +168,9 @@ def get_posts(username):
         tags = post['tags']
         price = post['price']
         post_string = "username: " + username + "\n" + "title: " + title + "\n" + "content: " + content + "\n" + "start time: " + time_start + "\n" + "end time: " + time_ends + "\n" + "price: " + price + "\n" + "tags: " + tags
-        print post_string
-        result = result + post_string
-        print result
+        #print post_string
+        result = post_string + result
+        #print result
         #print counter
     return result
 
@@ -257,10 +257,12 @@ def get_messages(person1, person2):
 #def update_name(username, new_name)
 
 #print "1"
-print get_posts('rebecca')
+#print get_posts('rebecca')
 #print
-#add_user("rebecca",'rebecca','rebecca','my life')
-#print get_rating('rebecca')
+add_user("rebecca",'rebecca','rebecca','my life')
+print get_rating('rebecca')
+print rate('rebecca',8)
+print get_rating('rebecca')
 #print "2"
 #print
 #print rate('rebecca',4)
