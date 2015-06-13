@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <link rel="stylesheet" type="text/css" href="{{ url_for( 'static',filename='css/bootstrap-theme.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
+
+    <style type="text/css">
+      body { background: #30ccff;}
+      
+    </style>
+
+    <title>Buying and Selling</title>
+    
+    {% block headcontent %}
+
+    {% endblock headcontent %}
+  </head>
+  
+  <body>
+    <div class="container" style="max-width:730px;">
+    {% block bodycontent %}
+
+    {% endblock bodycontent %}
+    </div>
+  </body>
+</html>

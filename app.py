@@ -13,7 +13,14 @@ def index():
     if 'username' in session:
         return redirect(url_for('home'))
     else:
-        return render_template("index.html", message = message)
+        if request.method=="GET":
+            return render_template("index.html", message=message)
+        else:
+            if request.form['b']=="Register":
+                return redirect(url_for('signup'))
+            if request.form['b']=="Login":
+                return redirect(url_for('login'))
+
 
 @app.route("/login", methods=['GET','POST'])
 def login():
