@@ -107,6 +107,7 @@ def profile():
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
 
+
 @app.route("/editprofile",methods=['GET','POST'])
 def editprofile():
     if 'username' not in session:
