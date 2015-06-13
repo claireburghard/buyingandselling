@@ -95,24 +95,47 @@ def profile():
         if request.method=="GET":
             username = session['username']
             name = mongo.get_name(username)
-            password = mongo.get_password(username)
+            #password = mongo.get_password(username)
             bio = mongo.get_bio(username)
             return render_template('profile.html',
                                    username=username,
                                    name=name,
                                    password=password,
                                    bio=bio)
-            return render_template('profile.html')
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
 
+<<<<<<< HEAD
 
 @app.route("/market",methods=['GET','POST'])
 def market():
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
+=======
+@app.route("/editprofile",methods=['GET','POST'])
+def editprofile():
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    else:
+        if request.method=="GET":
+            username = session['username']
+            name = mongo.get_name(username)
+            password = mongo.get_password(username)
+            bio = mongo.get_bio(username)
+            return render_template('editprofile.html',
+                                   username=username,
+                                   name=name,
+                                   password=password,
+                                   bio=bio)
+
+@app.route("/market",methods=['GET','POST'])
+def market():
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    else:
+>>>>>>> claire
        if request.method=="GET":
            return render_template('market.html')
        else:
@@ -144,7 +167,6 @@ def myitems():
                 mongo.add_post(user, title, content, start_price, time_start, time_ends, tags)
                 posts = mongo.get_posts(user)
                 return render_template('myitems.html', message=posts)
-
 
 
 @app.route("/myactivity",methods=['GET','POST'])
