@@ -40,12 +40,14 @@ def get_name(username):
     name = user['name']
     return name
 
+
 def get_password(username):
     user = users.find_one({'username':username})
     if user == None:
         return "User not found"
     password = user['password']
     return password
+
 
 def get_bio(username):
     user = users.find_one({'username':username})
@@ -54,6 +56,7 @@ def get_bio(username):
     bio = user['bio']
     return bio
 
+
 def get_rating(username):
     user = users.find_one({'username':username})
     if user == None:
@@ -61,18 +64,22 @@ def get_rating(username):
     rating = user['rating']
     return rating
 
+
 def update_name(username, new_name):
     user = users.find_one({'username':username})
     uname = user['username']
     #name = user['name']
     password = user['password']
     bio = user['bio']
-    db.users.update( {'username': username}, {
-        'username': username,
-        'name' : new_name,
-        'password' : password,
-        'bio' : bio} )
+    db.users.update({'username': username},
+                    {
+                    'username': username,
+                    'name' : new_name,
+                    'password' : password,
+                    'bio' : bio
+                    } )
     return
+
 
 def update_password(username, new_pass):
     user = users.find_one({'username':username})
@@ -157,7 +164,7 @@ def add_post(username, title, content, start_price, time_start, time_ends, tags)
     return posts.insert(post)
 
 def get_posts(username):
-    result =""
+    result = ""
     counter = 0
     for post in  posts.find({'username':username}):
         counter = counter + 1
@@ -245,6 +252,7 @@ def get_messages(person1, person2):
     print conversation
     mess = conversation['messages']
     return mess
+
 ##### ^^^^^ MESSAGING ^^^^^ #####
 
 ##### TESTING #####
@@ -286,4 +294,3 @@ print get_rating('rebecca')
 #print db.users
 #print db.posts
 #db.messages.remove()
-
