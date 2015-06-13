@@ -5,32 +5,26 @@
         <link href="http://fonts.googleapis.com/css?family=Lobster+Two:700" rel='stylesheet' type='text/css'>
             <link href="http://fonts.googleapis.com/css?family=Poiret+One" rel='stylesheet' type='text/css'>
                 
-                <link rel="stylesheet" type="text/css" href="{{ url_for( 'static',filename='css/bootstrap-theme.css') }}">
-                    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}">
-                        
-                        <style>
-                            h1-logo {
-                                font-family: "Lobster Two", cursive;
-                                font-size: 50px;
-                            }
-                            h2-subtitle {
-                                font-family: 'Poiret One', cursive;
-                                font-size: 15pt;
-                            }
-                            body {
-                                background: #30ccff;
-                            }
-                            navbar {
-                                background: #f76c6c;
-                            }
-                        </style>
-                        
-                        <title>Buying &amp; Selling</title>
-                        
-                        {% block headcontent %}
-                        
-                        {% endblock headcontent %}
-                        </head>
+                <link rel="stylesheet" type="text/css" href="{{ url_for( 'static',filename='css/bootstrap-theme.css') }}"/>
+                <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/bootstrap.css') }}"/>
+                
+                <style>
+                    h1-logo {
+                        font-family: "Lobster Two", cursive;
+                        font-size: 50px;
+                    }
+                    h2-subtitle {
+                        font-family: 'Poiret One', cursive;
+                        font-size: 15pt;
+                    }
+                </style>
+                
+                <title>Buying &amp; Selling</title>
+                
+                {% block headcontent %}
+                
+                {% endblock headcontent %}
+                </head>
     
     <body>
         <div class="container" style="max-width:730px;">
