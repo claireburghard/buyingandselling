@@ -1,0 +1,26 @@
+{% extends "home.html" %}
+
+{% block bodycontent %}
+<ul>
+<li>shows message log and user</li>
+<li>can respond to messages</li>
+</ul>
+
+<div class="input-group">
+  <input type="text" class="form-control" placeholder="Respond">
+  <span class="input-group-btn">
+    <button class="btn btn-default" type="button">Submit</button>
+  </span>
+</div>
+<br>
+<div class="panel panel-default">
+  <ul class="list-group">
+    <li class="list-group-item">
+      your last message</li>
+    <li class="list-group-item">
+      other persons last message
+    </li>
+  </div> 
+</div>
+
+{% endblock bodycontent %}
