@@ -100,7 +100,6 @@ def profile():
             return render_template('profile.html',
                                    username=username,
                                    name=name,
-                                   password=password,
                                    bio=bio)
         else:
             if request.form['b']=="Logout":
