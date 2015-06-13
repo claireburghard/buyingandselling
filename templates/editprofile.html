@@ -1,0 +1,42 @@
+{% extends "home.html" %}
+
+{% block headcontent %}
+
+<style>
+  h3 { font-weight: normal; }
+</style>
+
+{% endblock headcontent %}
+
+{% block bodycontent %}
+<div class="container" style="max-width:450px;">
+  <form role="form" method="POST"> 
+    <div class="text-center">
+      <h1>Edit Your Profile</h1>
+    </div>
+    <div class="text-left">
+      <h3>name</h3>
+      <input type="text" class="form-control" name="newname" placeholder={{ name }}>
+      <img src={{ profilepicture }} height="300px">
+      <h3>profile picture</h3>
+      <input type="text" class="form-control" name="newpicture" placeholder="paste the link to the image file you would like to use.">
+      <h3>password</h3>
+      <input type="text" class="form-control" name="newpassword" placeholder="new password">
+      <h3>bio</h3>
+      <input type="text" class="form-control" name="newbio" placeholder={{ bio }}>
+      <br>
+      <input type="submit" class="btn btn-default" name="b" value="Submit">
+    </div>
+  </form>
+  <br>
+  <br>
+  <br>
+</div>
+
+
+
+
+
+   
+
+{% endblock bodycontent %}

@@ -13,6 +13,7 @@ def index():
     if 'username' in session:
         return redirect(url_for('home'))
     else:
+<<<<<<< HEAD
         return render_template("index.html", message=message)
 
 
@@ -95,29 +96,49 @@ def profile():
         if request.method=="GET":
             username = session['username']
             name = mongo.get_name(username)
-            password = mongo.get_password(username)
+            #password = mongo.get_password(username)
             bio = mongo.get_bio(username)
+            profilepicture = mongo.get_profilepicture(username)
             return render_template('profile.html',
                                    username=username,
                                    name=name,
-                                   password=password,
-                                   bio=bio)
-            return render_template('profile.html')
+                                   bio=bio,
+                                   profilepicture=profilepicture)
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
 
 
-@app.route("/market",methods=['GET','POST'])
-def market():
+@app.route("/editprofile",methods=['GET','POST'])
+def editprofile():
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
-       if request.method=="GET":
-           return render_template('market.html')
-       else:
-           if request.form['b']=="Logout":
-               return redirect(url_for('logout'))
+        if request.method=="GET":
+            username = session['username']
+            name = mongo.get_name(username)
+            password = mongo.get_password(username)
+            bio = mongo.get_bio(username)
+            profilepicture = mongo.get_profilepicture(username)
+            return render_template('editprofile.html',
+                                   username=username,
+                                   name=name,
+                                   password=password,
+                                   profilepicture=profilepicture,
+                                   bio=bio)
+        else:
+            if request.form['b']=="Submit":
+                username = session['username']
+                newname = request.form['newname']
+                newpicture = request.form['newpicture']
+                newpassword = request.form['newpassword']
+                newbio = request.form['newbio']
+                mongo.update_name(username,newname)
+                mongo.update_profilepicture(username,newpicture)
+                mongo.update_password(username,newpassword)
+                mongo.update_bio(username,newbio)
+                return redirect(url_for('profile'))
+                
 
 @app.route("/myitems",methods=['GET','POST'])
 def myitems():
