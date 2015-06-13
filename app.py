@@ -106,14 +106,6 @@ def profile():
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
 
-<<<<<<< HEAD
-
-@app.route("/market",methods=['GET','POST'])
-def market():
-    if 'username' not in session:
-        return redirect(url_for('index'))
-    else:
-=======
 @app.route("/editprofile",methods=['GET','POST'])
 def editprofile():
     if 'username' not in session:
@@ -135,7 +127,6 @@ def market():
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
->>>>>>> claire
        if request.method=="GET":
            return render_template('market.html')
        else:
