@@ -264,14 +264,13 @@ def get_messages(person1, person2):
 #def add_conversation(person1, person2, messages)
 #def add_message(person1, person2, new_message)
 #def update_name(username, new_name)
-
 #print "1"
 #print get_posts('rebecca')
 #print
-add_user("rebecca",'rebecca','rebecca','my life')
-print get_rating('rebecca')
-print rate('rebecca',8)
-print get_rating('rebecca')
+#add_user("rebecca",'rebecca','rebecca','my life')
+#print get_rating('rebecca')
+#print rate('rebecca',8)
+#print get_rating('rebecca')
 #print "2"
 #print
 #print rate('rebecca',4)
