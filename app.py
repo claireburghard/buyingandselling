@@ -100,13 +100,12 @@ def profile():
             profilepicture = mongo.get_profilepicture(username)
             return render_template('profile.html',
                                    username=username,
-                                   name=name,
+                                   name = name,
                                    bio=bio,
                                    profilepicture=profilepicture)
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
-
 
 @app.route("/editprofile",methods=['GET','POST'])
 def editprofile():
@@ -169,6 +168,9 @@ def myitems():
                 time_start = request.form['time_start']
                 time_ends = request.form['time_ends']
                 tags = request.form['tags']
+                if (title == "" or content == "" or start_price == "" or 
+                    time_start == "" or time_ends == "" or tags == ""):
+                    return render_template("myitems.html", message = "Please fill in all fields correctly.")
                 mongo.add_post(user, title, content, start_price, time_start, time_ends, tags)
                 posts = mongo.get_posts(user)
                 return render_template('myitems.html', message=posts)
