@@ -1,21 +1,19 @@
 {% extends "base.html" %}
+
 {% block bodycontent %}
 
-<div class="text-center">
+<center>
+    <br><br><br><br><br><br>
     <h1-logo><b>Buying &amp; Selling</b></h1-logo>
-    <div>
-        <center>
-            <form role="form" method="POST">
-              <br><br>
-              <a href="{{ url_for('register') }}">
-		<button class="btn btn-primary btn-lg">Register</button>
-              </a>
-              <br><br><br>
-              <a href="{{ url_for('login') }}">
-		<button class="btn btn-primary btn-lg">Log in</button>
-              </a>
-            </form>
-        </center>
-    </div>
-    
+    <br><br><br>
+    <a href="{{ url_for('register') }}">
+        <button class="btn btn-lg">Register</button>
+    </a>
+    <a href="{{ url_for('login') }}">
+        <button class="btn btn-lg">Login</button>
+    </a>
+</center>
+</div> <!-- /.container -->
+</center>
+
 {% endblock bodycontent %}
