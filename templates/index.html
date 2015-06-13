@@ -2,23 +2,23 @@
 {% block bodycontent %}
 
 <div class="text-center">
-
-  <h1>Buying and Selling</h1>
-<div>
-    <center>
-        Click here to register:
-        <br>
-        <a href="{{ url_for('register') }}">
-            <button class="btn btn-primary btn-lg">Register</button>
-        </a>
-        <br>
-        Click here to login:
-        <br>
-        <a href="{{ url_for('login') }}">
-            <button class="btn btn-primary btn-lg">Log in</button>
-        </a>
-    </center>
-
-</div>
-
-{%endblock bodycontent %}
+    <h1-logo><b>Buying &amp; Selling</b></h1-logo>
+    <div>
+        <center>
+            <form role="form" method="POST">
+              Click here to register:
+              <br>
+              <a href="{{ url_for('register') }}">
+		<button class="btn btn-primary btn-lg">Register</button>
+              </a>
+              <br>
+              Click here to login:
+              <br>
+              <a href="{{ url_for('login') }}">
+		<button class="btn btn-primary btn-lg">Log in</button>
+              </a>
+            </form>
+        </center>
+    </div>
+    
+{% endblock bodycontent %}

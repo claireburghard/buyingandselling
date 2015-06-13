@@ -5,17 +5,6 @@ import mongo
 app = Flask(__name__)
 app.secret_key = 'secret'
 
-def authenticate(page):
-    def decorate(f):
-        @wraps(f)
-        def inner(*args):
-            if 'username' not in session:
-                flash("You need to be logged in to see that!")
-                session['nextpage'] = page
-                return redirect(url_for("login"))
-            return f(*args)
-        return inner
-    return decorate
 
 @app.route("/", methods=['GET','POST'])
 @app.route("/index", methods=['GET','POST'])
@@ -31,7 +20,8 @@ def index():
                 return redirect(url_for('signup'))
             if request.form['b']=="Login":
                 return redirect(url_for('login'))
-                
+
+
 
 @app.route("/login", methods=['GET','POST'])
 def login():
@@ -40,17 +30,18 @@ def login():
     else:
         message = ""
         if request.method=="GET":
-            return render_template("login.html", message=message)
+            return render_template("login.html", message = message)
         else:
             username = request.form["logusername"]
             password = request.form["logpassword"]
             confirmation = mongo.authenticate(username,password)
             if confirmation != "match":
                 message = confirmation
-                return render_template("login.html", message=message)
+                return render_template("login.html", message = message)
             if confirmation == "match":
                 session['username'] = username
                 return redirect(url_for('home'))
+
 
 @app.route("/register",methods=['GET','POST'])
 def register():
@@ -59,7 +50,7 @@ def register():
     else:
         message = ""
         if request.method=="GET":
-            return render_template("register.html", message=message)
+            return render_template("register.html", message = message)
         else:
             username = request.form["regusername"]
             password = request.form["regpassword"]
@@ -68,7 +59,7 @@ def register():
             name = request.form["name"]
             if mongo.user_exists(username) == "exists":
                 message = "Someone already has this username. Please use a different one."
-                return render_template("register.html", message=message)
+                return render_template("register.html", message = message)
             else:
                 if password == password2:
                     mongo.add_user(username, password, name, bio)
@@ -76,7 +67,8 @@ def register():
                     return  redirect(url_for('signup'))
                 else:
                     message = "Please make sure your passwords match."
-                    return render_template("register.html", message=message)
+                    return render_template("register.html", message = message)
+
 
 @app.route("/home",methods=['GET','POST'])
 def home():
@@ -84,13 +76,13 @@ def home():
         return redirect(url_for('index'))
     else:
         message = ""
+        name = session['username']
         if request.method=="GET":
-            return render_template('home.html', message=message)
+            return render_template('home.html', message = message, name = name)
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
-            
-                
+
 
 @app.route("/signup", methods=['GET','POST'])
 def signup():
@@ -106,11 +98,22 @@ def profile():
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
+        name = session['username']
         if request.method=="GET":
+            username = session['username']
+            name = mongo.get_name(username)
+            password = mongo.get_password(username)
+            bio = mongo.get_bio(username)
+            return render_template('profile.html',
+                                   username=username,
+                                   name=name,
+                                   password=password,
+                                   bio=bio)
             return render_template('profile.html')
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
+
 
 @app.route("/market",methods=['GET','POST'])
 def market():
@@ -123,8 +126,6 @@ def market():
            if request.form['b']=="Logout":
                return redirect(url_for('logout'))
 
-
-
 @app.route("/myitems",methods=['GET','POST'])
 def myitems():
     if 'username' not in session:
@@ -132,7 +133,7 @@ def myitems():
     else:
         message = ""
         if request.method=="GET":
-            return render_template('myitems.html', message=message)
+            return render_template('myitems.html', message = message)
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
@@ -151,6 +152,8 @@ def myitems():
                 posts = mongo.get_posts(user)
                 return render_template('myitems.html', message=posts)
 
+
+
 @app.route("/myactivity",methods=['GET','POST'])
 def myactivity():
     if 'username' not in session:
@@ -161,8 +164,8 @@ def myactivity():
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
-    
-    
+
+
 @app.route("/messages",methods=['GET','POST'])
 def messages():
     if 'username' not in session:
