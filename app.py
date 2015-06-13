@@ -20,7 +20,7 @@ def index():
                 return redirect(url_for('signup'))
             if request.form['b']=="Login":
                 return redirect(url_for('login'))
-                
+
 
 
 @app.route("/login", methods=['GET','POST'])
@@ -30,14 +30,14 @@ def login():
     else:
         message = ""
         if request.method=="GET":
-            return render_template("login.html", message=message)
+            return render_template("login.html", message = message)
         else:
             username = request.form["logusername"]
             password = request.form["logpassword"]
             confirmation = mongo.authenticate(username,password)
             if confirmation != "match":
                 message = confirmation
-                return render_template("login.html", message=message)
+                return render_template("login.html", message = message)
             if confirmation == "match":
                 session['username'] = username
                 return redirect(url_for('home'))
@@ -50,7 +50,7 @@ def register():
     else:
         message = ""
         if request.method=="GET":
-            return render_template("register.html", message=message)
+            return render_template("register.html", message = message)
         else:
             username = request.form["regusername"]
             password = request.form["regpassword"]
@@ -59,7 +59,7 @@ def register():
             name = request.form["name"]
             if mongo.user_exists(username) == "exists":
                 message = "Someone already has this username. Please use a different one."
-                return render_template("register.html", message=message)
+                return render_template("register.html", message = message)
             else:
                 if password == password2:
                     mongo.add_user(username, password, name, bio)
@@ -67,7 +67,7 @@ def register():
                     return  redirect(url_for('signup'))
                 else:
                     message = "Please make sure your passwords match."
-                    return render_template("register.html", message=message)
+                    return render_template("register.html", message = message)
 
 
 @app.route("/home",methods=['GET','POST'])
@@ -78,10 +78,9 @@ def home():
         message = ""
         name = session['username']
         if request.method=="GET":
-            return render_template('home.html', message=message, name = name)
+            return render_template('home.html', message = message, name = name)
         else:
             if request.form['b']=="Logout":
-                print "logout"
                 return redirect(url_for('logout'))
 
 
@@ -90,7 +89,8 @@ def signup():
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
-        return render_template('signup.html')
+        if request.method=="GET":
+            return render_template('signup.html')
 
 
 @app.route("/profile",methods=['GET','POST'])
@@ -103,7 +103,6 @@ def profile():
             return render_template('profile.html', name = name)
         else:
             if request.form['b']=="Logout":
-                print "logout"
                 return redirect(url_for('logout'))
 
 
@@ -112,13 +111,11 @@ def market():
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
-        if request.method=="GET":
-            return render_template('market.html')
-        else:
-            if request.form['b']=="Logout":
-                print "logout"
-                return redirect(url_for('logout'))
-
+       if request.method=="GET":
+           return render_template('market.html')
+       else:
+           if request.form['b']=="Logout":
+               return redirect(url_for('logout'))
 
 @app.route("/myitems",methods=['GET','POST'])
 def myitems():
@@ -127,10 +124,9 @@ def myitems():
     else:
         message = ""
         if request.method=="GET":
-            return render_template('myitems.html', message=message)
+            return render_template('myitems.html', message = message)
         else:
             if request.form['b']=="Logout":
-                print "logout"
                 return redirect(url_for('logout'))
             if request.form['b']=="Submit":
                 user = session['username']
@@ -154,7 +150,6 @@ def myactivity():
             return render_template('myactivity.html')
         else:
             if request.form['b']=="Logout":
-                print "logout"
                 return redirect(url_for('logout'))
 
 
@@ -167,10 +162,21 @@ def messages():
             return render_template('messages.html')
         else:
             if request.form['b']=="Logout":
-                print "logout"
                 return redirect(url_for('logout'))
 
-
+@app.route("/viewmessage/<otheruser>", methods=['GET','POST'])
+def viewmessage(otheruser):
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    else:
+        if request.method=="GET":
+            return render_template('viewmessage.html',
+                                   otheruser=otheruser,
+                                   currentuser=session['username'])
+        else:
+            if request.form['b']=="Logout":
+                return redirect(url_for('logout'))
+        
     
 @app.route("/logout")
 def logout():

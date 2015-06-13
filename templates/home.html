@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block headcontent %}
+
 <nav class="navbar navbar-default">
   <div class="container-fluid">
     <div class="navbar-header">
@@ -33,9 +34,11 @@
     </div><!-- /.navbar-collapse -->
   </div><!-- /.container-fluid -->
 </nav>
+
 {% endblock headcontent %}
 
 {% block bodycontent %}
 
-{% endblock bodycontent %}
+<h1>Welcome {{ name }}!</h1>
 
+{% endblock bodycontent %}

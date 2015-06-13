@@ -30,25 +30,31 @@
                     <button type="submit" name="b" value="Logout" class="btn btn-default">Log Out</button>
                 </form>
             </ul>
-        </div><!-- /.navbar-collapse -->
-    </div><!-- /.container-fluid -->
+        </div> <!-- /.navbar-collapse -->
+    </div> <!-- /.container-fluid -->
 </nav>
 
 {% endblock headcontent %}
+
 {% block bodycontent %}
 
 <h1>MY ITEMS PAGE</h1>
 
 {{ message }}
 
-<div class="panel panel-default">
-    <div class="panel-heading">
-        Panel heading without title
-    </div>
-    <div class="panel-body">
-        Panel content
-    </div>
-</div>
+<div class="container" style="max-width:730px;">
+    <form role="form" method="POST">
+        <p><input type="text" class="form-control" name="title" placeholder="Title"/></p>
+        <p><input type="text" class="form-control" name="content" placeholder="Content"/></p>
+        <p><input type="text" class="form-control" name="start_price" placeholder="Start Price"/></p>
+        <p><input type="text" class="form-control" name="time_start" placeholder="Time Start"/></p>
+        <p><input type="text" class="form-control" name="time_ends" placeholder="Time Ends"/></p>
+        <p><input type="text" class="form-control" name="tags" placeholder="Tags"/></p>
+        <input type="submit" name="b" class="btn btn-default" value="Submit"/>
+    </form>
+</div> <!-- /.container -->
+
+{% endblock bodycontent %}
 
 <div class="panel panel-default">
     <div class="panel-heading">
