@@ -13,14 +13,7 @@ def index():
     if 'username' in session:
         return redirect(url_for('home'))
     else:
-        if request.method=="GET":
-            return render_template("index.html", message=message)
-        else:
-            if request.form['b']=="Register":
-                return redirect(url_for('signup'))
-            if request.form['b']=="Login":
-                return redirect(url_for('login'))
-
+        return render_template("index.html", message=message)
 
 
 @app.route("/login", methods=['GET','POST'])
@@ -98,6 +91,7 @@ def profile():
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
+        name = session['username']
         if request.method=="GET":
             username = session['username']
             name = mongo.get_name(username)
@@ -143,6 +137,7 @@ def editprofile():
                 mongo.update_bio(username,newbio)
                 return redirect(url_for('profile'))
                 
+
 @app.route("/market",methods=['GET','POST'])
 def market():
     if 'username' not in session:

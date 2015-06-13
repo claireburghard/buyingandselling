@@ -1,6 +1,43 @@
 {% extends "home.html" %}
 
+{% block headcontent %}
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{ url_for('home') }}">Buying and Selling</a>
+        </div>
+        
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li><a href="{{ url_for('profile') }}">Profile</a></li>
+                <li><a href="{{ url_for('market') }}">Market</a></li>
+                <li><a href="{{ url_for('myitems') }}">My Items</a></li>
+                <li><a href="{{ url_for('myactivity') }}">My Activity</a></li>
+                <li><a href="{{ url_for('messages') }}">Messages</a></li>
+            </ul>
+            <ul class="nav pull-right">
+                <form class="navbar-form navbar-left" role="search" method="POST">
+                    <div class="form-group">
+                        <input type="text" class="form-control" placeholder="Search">
+                            </div>
+                    <button type="submit" class="btn btn-default">Submit</button>
+                    <button type="submit" name="b" value="Logout" class="btn btn-default">Log Out</button>
+                </form>
+            </ul>
+        </div> <!-- /.navbar-collapse -->
+    </div> <!-- /.container-fluid -->
+</nav>
+
+{% endblock headcontent %}
+
 {% block bodycontent %}
+
 <h1>MY ITEMS PAGE</h1>
 
 {{ message }}
@@ -22,17 +59,26 @@
 </div>
 
 <div class="container" style="max-width:730px;">
-      <form role="form" method="POST">
-	<p><input type="text" class="form-control" name="title" placeholder="Title"></p>
-	<p><input type="text" class="form-control" name="content" placeholder="Content"></p>
-	<p><input type="text" class="form-control" name="start_price" placeholder="Start Price"></p>
-	<p><input type="text" class="form-control" name="time_start" placeholder="Time Start"></p>
-	<p><input type="text" class="form-control" name="time_ends" placeholder="Time Ends"></p>
-	<p><input type="text" class="form-control" name="tags" placeholder="Tags"></p>
-	<input type="submit" name="b" class="btn btn-default" value="Submit">
-      </form>
-    </div><!-- /.container -->
+    <form role="form" method="POST">
+        <p><input type="text" class="form-control" name="title" placeholder="Title"/></p>
+        <p><input type="text" class="form-control" name="content" placeholder="Content"/></p>
+        <p><input type="text" class="form-control" name="start_price" placeholder="Start Price"/></p>
+        <p><input type="text" class="form-control" name="time_start" placeholder="Time Start"/></p>
+        <p><input type="text" class="form-control" name="time_ends" placeholder="Time Ends"/></p>
+        <p><input type="text" class="form-control" name="tags" placeholder="Tags"/></p>
+        <input type="submit" name="b" class="btn btn-default" value="Submit"/>
+    </form>
+</div> <!-- /.container -->
+
+<br>
+
+<div class="panel panel-default">
+    <div class="panel-heading">
+        <h3 class="panel-title">Panel title</h3>
+    </div>
+    <div class="panel-body">
+        Panel content
+    </div>
+</div>
+
 {% endblock bodycontent %}
-
-
-username, title, content, start_price, time_start, time_ends, tags

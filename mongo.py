@@ -7,7 +7,7 @@ posts = db.posts
 messages = db.messages
 
 ##### USER #####
-def add_user(username,password,name, bio):
+def add_user( username, password, name, bio ):
     user = {
         'username' : username,
         'password' : password,
@@ -41,6 +41,7 @@ def get_name(username):
     name = user['name']
     return name
 
+
 def get_password(username):
     user = users.find_one({'username':username})
     if user == None:
@@ -48,12 +49,14 @@ def get_password(username):
     password = user['password']
     return password
 
+
 def get_bio(username):
     user = users.find_one({'username':username})
     if user == None:
         return "User not found"
     bio = user['bio']
     return bio
+
 
 def get_rating(username):
     user = users.find_one({'username':username})
@@ -68,6 +71,7 @@ def get_profilepicture(username):
         return "User not found"
     profilepicture = user['profilepicture']
     return profilepicture
+
 
 def update_name(username, new_name):
     user = users.find_one({'username':username})
@@ -87,6 +91,7 @@ def update_name(username, new_name):
         'ratings' : ratings,
         'profilepicture' : profilepicture} )
     return
+
 
 def update_password(username, new_pass):
     user = users.find_one({'username':username})
@@ -195,13 +200,14 @@ def add_post(username, title, content, start_price, time_start, time_ends, tags)
         'highest_bidder': None, #this will be someones username
         'time_start' : time_start,
         'time_ends' : time_ends,
-        'tags' : tags,
+        'tags_string':tags.lower(),
+        'tags_array':tags.lower().split(", ")
     }
     #print post
     return posts.insert(post)
 
 def get_posts(username):
-    result =""
+    result = ""
     counter = 0
     for post in  posts.find({'username':username}):
         counter = counter + 1
@@ -289,6 +295,7 @@ def get_messages(person1, person2):
     print conversation
     mess = conversation['messages']
     return mess
+
 ##### ^^^^^ MESSAGING ^^^^^ #####
 
 ##### TESTING #####
@@ -300,10 +307,7 @@ def get_messages(person1, person2):
 #def add_conversation(person1, person2, messages)
 #def add_message(person1, person2, new_message)
 #def update_name(username, new_name)
-
-
 #db.users.remove()
 #print db.users
 #print db.posts
 #db.messages.remove()
-
