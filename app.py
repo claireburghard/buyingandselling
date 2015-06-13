@@ -13,14 +13,7 @@ def index():
     if 'username' in session:
         return redirect(url_for('home'))
     else:
-        if request.method=="GET":
-            return render_template("index.html", message=message)
-        else:
-            if request.form['b']=="Register":
-                return redirect(url_for('signup'))
-            if request.form['b']=="Login":
-                return redirect(url_for('login'))
-
+        return render_template("index.html", message=message)
 
 
 @app.route("/login", methods=['GET','POST'])
@@ -145,9 +138,13 @@ def myitems():
                 time_start = request.form['time_start']
                 time_ends = request.form['time_ends']
                 tags = request.form['tags']
+                if (title == "" or content == "" or start_price == "" or 
+                    time_start == "" or time_ends == "" or tags == ""):
+                    return render_template("myitems.html", message = "Please fill in all fields correctly.")
                 mongo.add_post(user, title, content, start_price, time_start, time_ends, tags)
                 posts = mongo.get_posts(user)
                 return render_template('myitems.html', message=posts)
+
 
 
 @app.route("/myactivity",methods=['GET','POST'])
