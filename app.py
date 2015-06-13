@@ -22,6 +22,7 @@ def index():
                 return redirect(url_for('login'))
 
 
+
 @app.route("/login", methods=['GET','POST'])
 def login():
     if 'username' in session:
@@ -40,6 +41,7 @@ def login():
             if confirmation == "match":
                 session['username'] = username
                 return redirect(url_for('home'))
+
 
 @app.route("/register",methods=['GET','POST'])
 def register():
@@ -67,6 +69,7 @@ def register():
                     message = "Please make sure your passwords match."
                     return render_template("register.html", message = message)
 
+
 @app.route("/home",methods=['GET','POST'])
 def home():
     if 'username' not in session:
@@ -79,8 +82,7 @@ def home():
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
-            
-                
+
 
 @app.route("/signup", methods=['GET','POST'])
 def signup():
@@ -98,10 +100,20 @@ def profile():
     else:
         name = session['username']
         if request.method=="GET":
-            return render_template('profile.html', name = name)
+            username = session['username']
+            name = mongo.get_name(username)
+            password = mongo.get_password(username)
+            bio = mongo.get_bio(username)
+            return render_template('profile.html',
+                                   username=username,
+                                   name=name,
+                                   password=password,
+                                   bio=bio)
+            return render_template('profile.html')
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
+
 
 @app.route("/market",methods=['GET','POST'])
 def market():
@@ -113,7 +125,6 @@ def market():
        else:
            if request.form['b']=="Logout":
                return redirect(url_for('logout'))
-
 
 @app.route("/myitems",methods=['GET','POST'])
 def myitems():
@@ -137,7 +148,7 @@ def myitems():
                 mongo.add_post(user, title, content, start_price, time_start, time_ends, tags)
                 posts = mongo.get_posts(user)
                 return render_template('myitems.html', message=posts)
-    
+
 
 @app.route("/myactivity",methods=['GET','POST'])
 def myactivity():
