@@ -3,7 +3,24 @@
 {% block bodycontent %}
 <div class="container" style="max-width:450px;">
   <div class="text-center">
-    <h1>Welcome {{ name }}!</h1>
+    <form role="form" method="POST">
+    <h1>Edit Your Profile</h1>
+    <h2>username</h2>
+    <h3>current: {{ username }}</h3>
+    <h3>change: <h3> 
+    <h2>name</h2>
+    <h2>profile picture</h2>
+    <h2>password</h2>
+    <h2>bio</h2>
+
+
+
+
+
+
+
+
+    
     <img src="http://slodive.com/wp-content/uploads/2013/02/cute-bunny-pictures/cute.jpg" height="300px">
   </div>
   <div class="text-left">
