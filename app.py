@@ -95,6 +95,15 @@ def profile():
         return redirect(url_for('index'))
     else:
         if request.method=="GET":
+            username = session['username']
+            name = mongo.get_name(username)
+            password = mongo.get_password(username)
+            bio = mongo.get_bio(username)
+            return render_template('profile.html',
+                                   username=username,
+                                   name=name,
+                                   password=password,
+                                   bio=bio)
             return render_template('profile.html')
         else:
             if request.form['b']=="Logout":
