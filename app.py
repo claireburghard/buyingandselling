@@ -24,7 +24,14 @@ def index():
     if 'username' in session:
         return redirect(url_for('home'))
     else:
-        return render_template("index.html", message=message)
+        if request.method=="GET":
+            return render_template("index.html", message=message)
+        else:
+            if request.form['b']=="Register":
+                return redirect(url_for('signup'))
+            if request.form['b']=="Login":
+                return redirect(url_for('login'))
+                
 
 @app.route("/login", methods=['GET','POST'])
 def login():
@@ -57,14 +64,15 @@ def register():
             username = request.form["regusername"]
             password = request.form["regpassword"]
             password2 = request.form["regpassword2"]
+            bio = request.form['bio']
             name = request.form["name"]
             if mongo.user_exists(username) == "exists":
                 message = "Someone already has this username. Please use a different one."
                 return render_template("register.html", message=message)
             else:
                 if password == password2:
-                    mongo.add_user(username,password,name)
-                    session['username'] = username
+                    mongo.add_user(username, password, name, bio)
+                    message = "Registration sucessful! Log in to get started."
                     return  redirect(url_for('signup'))
                 else:
                     message = "Please make sure your passwords match."
@@ -122,25 +130,27 @@ def myitems():
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
+        message = ""
         if request.method=="GET":
-            return render_template('myitems.html')
+            return render_template('myitems.html', message=message)
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
             if request.form['b']=="Submit":
+                user = session['username']
                 title = request.form['title']
                 content = request.form['content']
-                price = request.form['price']
-                user = session['username']
-                currtime="timenow"
-                timeends=request.form['time']
-                tags=request.form['tags']
-                if (title == "" or content == "" or price == "" or timeends == "" or tags == ""):
+                start_price = request.form['start_price']
+                time_start = request.form['time_start']
+                time_ends = request.form['time_ends']
+                tags = request.form['tags']
+                if (title == "" or content == "" or start_price == "" or 
+                    time_start == "" or time_ends == "" or tags == ""):
                     return render_template("myitems.html", message = "Please fill in all fields correctly.")
-                mongo.add_post(user, title, content, price,currtime,timeends,tags)
+                mongo.add_post(user, title, content, start_price, time_start, time_ends, tags)
                 posts = mongo.get_posts(user)
-                return render_template('home.html', message=posts)
-            
+                return render_template('myitems.html', message=posts)
+
 @app.route("/myactivity",methods=['GET','POST'])
 def myactivity():
     if 'username' not in session:
