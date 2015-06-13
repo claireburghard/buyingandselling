@@ -1,14 +1,24 @@
 {% extends "base.html" %}
+
 {% block bodycontent %}
 
-<div class="text-center">
-    
+<center>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
+    <br>
     <h1-logo><b>Buying &amp; Selling</b></h1-logo>
-    <div class="container">
-        <form role="form" method="POST">
-                <input type="submit" name="b" class="btn btn-lg" value="Register"/>
-                <input type="submit" name="b" class="btn btn-lg" value="Login"/>
-        </form>
-    </div> <!-- /.container -->
-    
+    <br>
+    <br>
+    <br>
+    <a href="{{ url_for('register') }}">
+        <button class="btn btn-lg">Register</button>
+    </a>
+    <a href="{{ url_for('login') }}">
+        <button class="btn btn-lg">Login</button>
+    </a>
+</center>
+
 {% endblock bodycontent %}
