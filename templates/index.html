@@ -1,9 +1,20 @@
-<!doctype html>
-<html>
-  <head>
-  </head>
-  <body>
-    HELLO WORLD
-    {{message}}
-  </body>
-</html>
+{% extends "base.html" %}
+{% block bodycontent %}
+
+<div class="text-center">
+    
+    <h1-logo><b>Buying &amp; Selling</b></h1-logo>
+    <div>
+        <center>
+            <form role="form" method="POST">
+                <p>
+                <input type="submit" name="b" class="btn btn-primary btn-lg" value="Register"/>
+                </p>
+                <p>
+                <input type="submit" name="b" class="btn btn-primary btn-lg" value="Login"/>
+                </p>
+            </form>
+        </center>
+    </div>
+    
+{% endblock bodycontent %}
