@@ -15,6 +15,7 @@ def add_user(username,password,name, bio):
         'bio' : bio,
         'rating' : 4,
         'ratings' : 2,
+        'profilepicture' : "http://cliparts.co/cliparts/qTB/6x8/qTB6x8zT5.svg"
     }
     return users.insert(user)
 
@@ -61,17 +62,30 @@ def get_rating(username):
     rating = user['rating']
     return rating
 
+def get_profilepicture(username):
+    user = users.find_one({'username':username})
+    if user == None:
+        return "User not found"
+    profilepicture = user['profilepicture']
+    return profilepicture
+
 def update_name(username, new_name):
     user = users.find_one({'username':username})
     uname = user['username']
     #name = user['name']
     password = user['password']
     bio = user['bio']
+    rating = user['rating']
+    ratings = user['ratings']
+    profilepicture = user['profilepicture']
     db.users.update( {'username': username}, {
         'username': username,
         'name' : new_name,
         'password' : password,
-        'bio' : bio} )
+        'bio' : bio,
+        'rating' : rating,
+        'ratings' : ratings,
+        'profilepicture' : profilepicture} )
     return
 
 def update_password(username, new_pass):
@@ -80,11 +94,17 @@ def update_password(username, new_pass):
     name = user['name']
     #password = user['password']
     bio = user['bio']
+    rating = user['rating']
+    ratings = user['ratings']
+    profilepicture = user['profilepicture']
     db.users.update( {'username': username}, {
         'username': username,
-        'name' : new_name,
+        'name' : name,
         'password' : new_pass,
-        'bio' : bio} )
+        'bio' : bio,
+        'rating' : rating,
+        'ratings' : ratings,
+        'profilepicture' : profilepicture} )
     return
 
 def update_bio(username, new_bio):
@@ -93,11 +113,36 @@ def update_bio(username, new_bio):
     name = user['name']
     password = user['password']
     #bio = user['bio']
+    rating = user['rating']
+    ratings = user['ratings']
+    profilepicture = user['profilepicture']
     db.users.update( {'username': username}, {
         'username': username,
         'name' : name,
         'password': password,
-        'bio' : new_bio} )
+        'bio' : new_bio,
+        'rating' : rating,
+        'ratings' : ratings,
+        'profilepicture' : profilepicture} )
+    return
+
+def update_profilepicture(username, new_profilepicture):
+    user = users.find_one({'username':username})
+    uname = user['username']
+    name = user['name']
+    password = user['password']
+    bio = user['bio']
+    rating = user['rating']
+    ratings = user['ratings']
+    #profilepicture = user['profilepicture']
+    db.users.update( {'username': username}, {
+        'username': username,
+        'name' : name,
+        'password': password,
+        'bio' : bio,
+        'rating' : rating,
+        'ratings' : ratings,
+        'profilepicture' : new_profilepicture} )
     return
 
 def rate(username, new_rating):
@@ -256,32 +301,7 @@ def get_messages(person1, person2):
 #def add_message(person1, person2, new_message)
 #def update_name(username, new_name)
 
-#print "1"
-#print get_posts('rebecca')
-#print
-add_user("rebecca",'rebecca','rebecca','my life')
-print get_rating('rebecca')
-print rate('rebecca',8)
-print get_rating('rebecca')
-#print "2"
-#print
-#print rate('rebecca',4)
-#add_conversation('rebecca','rfriend',['hello','hi'])
-#print get_messages('rebecca','rfriend')
-#add_message('rebecca','rfriend','numba 1')
-#add_message('rfriend','rebecca','numba 2')
-#print get_messages('rebecca','rfriend')
-#print get_messages('rfriend','rebecca')
-#print
-#print
-#print "3"
-#print get_posts('rebecca')
-#print
-#print
-#print "4"
-#print get_posts('lol')
 
-#db.posts.remove()
 #db.users.remove()
 #print db.users
 #print db.posts
