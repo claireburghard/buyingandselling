@@ -143,6 +143,18 @@ def myitems():
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
+
+@app.route("/newpost",methods=['GET','POST'])
+def newpost():
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    else:
+        message = ""
+        if request.method=="GET":
+            return render_template('newpost.html', message = message)
+        else:
+            if request.form['b']=="Logout":
+                return redirect(url_for('logout'))
             if request.form['b']=="Submit":
                 user = session['username']
                 title = request.form['title']
