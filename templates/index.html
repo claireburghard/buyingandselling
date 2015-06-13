@@ -10,12 +10,14 @@
         <br>
         
         <div class="container">
-            <form role="form" method="POST">
-                <center>
-                    <input type="submit" name="b" class="btn btn-lg" value="Register"/>
-                    <input type="submit" name="b" class="btn btn-lg" value="Login"/>
-                </center>
-            </form>
+            <center>
+                <a href="{{ url_for('register') }}">
+                    <button class="btn btn-lg">Register</button>
+                </a>
+                <a href="{{ url_for('login') }}">
+                    <button class="btn btn-lg">Login</button>
+                </a>
+            </center>
         </div> <!-- /.container -->
     </center>
 </div> <!-- /.container -->
