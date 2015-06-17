@@ -104,6 +104,8 @@ def profile():
                                    bio=bio,
                                    profilepicture=profilepicture)
         else:
+            if request.form['b']=="Edit Profile":
+                return redirect(url_for('editprofile'))
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
 
@@ -128,10 +130,22 @@ def editprofile():
         else:
             if request.form['b']=="Submit":
                 username = session['username']
-                newname = request.form['newname']
-                newpicture = request.form['newpicture']
-                newpassword = request.form['newpassword']
-                newbio = request.form['newbio']
+                if request.form['newname']!="":
+                    newname = request.form['newname']
+                else:
+                    newname = mongo.get_name(username)
+                if request.form['newpicture']!="":
+                    newpicture = request.form['newpicture']
+                else:
+                    newpicture = mongo.get_profilepicture(username)
+                if request.form['newpassword']!="":
+                    newpassword = request.form['newpassword']
+                else:
+                    newpassword = mongo.get_password(username)
+                if request.form['newbio']!="":
+                    newbio = request.form['newbio']
+                else:
+                    newbio = mongo.get_bio(username)
                 mongo.update_name(username,newname)
                 mongo.update_profilepicture(username,newpicture)
                 mongo.update_password(username,newpassword)

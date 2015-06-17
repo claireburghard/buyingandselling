@@ -7,10 +7,18 @@
     <img src={{ profilepicture }} height="300px" class="img-rounded">
   </div>
   <div class="text-left">
-    <h2>Your profile</h2>
-    <h3>Username <small>{{ username }}</small></h3>
-    <h3>Name <small>{{ name }}</small></h3>
-    <h3>Bio <small>{{ bio }}</small></h3>
+    <h2>{{ name }}'s  profile</h2>
+    <h3><small>Username: </small>{{ username }}</h3>
+    <h3><small>Name: </small>{{ name }}</h3>
+    <h3><small>Bio: </small>{{ bio }}</h3>
+    <br>
+  </div>
+  <div class="text-center">
+    <form role="form" method="POST">
+      <input type="submit" class="btn btn-default" name="b" value="Edit Profile">
+      <br>
+      <br>
+    </form>
   </div>
 </div>
 
