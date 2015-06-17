@@ -156,7 +156,7 @@ def myitems():
     else:
         message = ""
         if request.method=="GET":
-            return render_template('myitems.html', message = message)
+            return render_template('myitems.html', message = message, myitems = mongo.get_posts( session["username"] ))
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
