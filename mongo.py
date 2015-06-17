@@ -197,11 +197,11 @@ def add_post(username, title, content, start_price, time_start, time_ends, tags)
         'content' : content,
         #price attribute will keep changing based on what the highest bid is
         'price' : start_price,
-        'highest_bidder': None, #this will be someones username
+        'highest_bidder' : None, #this will be someones username
         'time_start' : time_start,
         'time_ends' : time_ends,
-        'tags_string':tags.lower(),
-        'tags_array':tags.lower().split(", ")
+        'tags_string' : tags.lower(),
+        'tags_array' : tags.lower().split(", ")
     }
     #print post
     return posts.insert(post)
@@ -216,7 +216,7 @@ def get_posts(username):
         content = post['content']
         time_start = post['time_start']
         time_ends = post['time_ends']
-        tags = post['tags']
+        tags = post['tags_string']
         price = post['price']
         post_string = "username: " + username + "\n" + "title: " + title + "\n" + "content: " + content + "\n" + "start time: " + time_start + "\n" + "end time: " + time_ends + "\n" + "price: " + price + "\n" + "tags: " + tags
         #print post_string
@@ -233,7 +233,7 @@ def bid(bidder_uname, poster_uname, post_title, new_price):
     content = post['content']
     time_start = post['time_start']
     time_ends = post['time_ends']
-    tags = post['tags']
+    tags = post['tags_string']
     price = post['price']
 
     if new_price <= price:
@@ -250,7 +250,14 @@ def bid(bidder_uname, poster_uname, post_title, new_price):
                      'tags':tags,
                      })
 
-    return 
+    return
+
+def get_following_posts(username):
+    ##finds all of the posts that a user is associated with and prints them
+    bidded_posts = posts.find({'highest_bidder':username})
+    print bidded_posts
+    return bidded_posts
+
 ##### ^^^^^ POSTS ^^^^^ #####
 
 ##### MESSAGING #####
@@ -300,6 +307,8 @@ def get_messages(person1, person2):
 
 ##### TESTING #####
 
+get_following_posts("claire")
+
 #the way the function calls work
 #def add_user(username,password,name, bio)
 #def add_post(username, title, content, start_price, time_start, time_ends, tags)
@@ -308,6 +317,7 @@ def get_messages(person1, person2):
 #def add_message(person1, person2, new_message)
 #def update_name(username, new_name)
 #db.users.remove()
+#db.posts.remove()
 #print db.users
 #print db.posts
 #db.messages.remove()
