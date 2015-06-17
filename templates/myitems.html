@@ -6,17 +6,9 @@
 
 {{ message }}
 
-<div class="container" style="max-width:730px;">
-      <form role="form" method="POST">
-	<p><input type="text" class="form-control" name="title" placeholder="What are you selling?"></p>
-	<p><input type="text" class="form-control" name="content" placeholder="Description of the item"></p>
-	<p><input type="text" class="form-control" name="start_price" placeholder="Starting price"></p>
-	<p><input type="text" class="form-control" name="time_start" placeholder="Time Start"></p>
-	<p><input type="text" class="form-control" name="time_ends" placeholder="When does the bidding end?"></p>
-	<p><input type="text" class="form-control" name="tags" placeholder="Add some tags seperate by comma"></p>
-	<input type="submit" name="b" class="btn btn-default" value="Submit">
-      </form>
-</div><!-- /.container -->
+<a href="{{ url_for('newpost') }}">
+    <button class="btn btn-default">Add item</button>
+</a>
 
 <br>
 

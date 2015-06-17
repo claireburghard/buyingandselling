@@ -97,10 +97,12 @@ def profile():
             name = mongo.get_name(username)
             #password = mongo.get_password(username)
             bio = mongo.get_bio(username)
+            profilepicture = mongo.get_profilepicture(username)
             return render_template('profile.html',
                                    username=username,
-                                   name=name,
-                                   bio=bio)
+                                   name = name,
+                                   bio=bio,
+                                   profilepicture=profilepicture)
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
@@ -115,11 +117,26 @@ def editprofile():
             name = mongo.get_name(username)
             password = mongo.get_password(username)
             bio = mongo.get_bio(username)
+            profilepicture = mongo.get_profilepicture(username)
             return render_template('editprofile.html',
                                    username=username,
                                    name=name,
                                    password=password,
+                                   profilepicture=profilepicture,
                                    bio=bio)
+        else:
+            if request.form['b']=="Submit":
+                username = session['username']
+                newname = request.form['newname']
+                newpicture = request.form['newpicture']
+                newpassword = request.form['newpassword']
+                newbio = request.form['newbio']
+                mongo.update_name(username,newname)
+                mongo.update_profilepicture(username,newpicture)
+                mongo.update_password(username,newpassword)
+                mongo.update_bio(username,newbio)
+                return redirect(url_for('profile'))
+                
 
 @app.route("/market",methods=['GET','POST'])
 def market():
@@ -140,6 +157,18 @@ def myitems():
         message = ""
         if request.method=="GET":
             return render_template('myitems.html', message = message)
+        else:
+            if request.form['b']=="Logout":
+                return redirect(url_for('logout'))
+
+@app.route("/newpost",methods=['GET','POST'])
+def newpost():
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    else:
+        message = ""
+        if request.method=="GET":
+            return render_template('newpost.html', message = message)
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
