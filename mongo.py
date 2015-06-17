@@ -191,18 +191,19 @@ def rate(username, new_rating):
 
 ##### POSTS #####
 def add_post(username, title, content, start_price, time_start, time_ends, tags):
+    tgs = tags.lower()
+    tgs_array = tgs.split(",")
     post = {
         'username' : username,
         'title': title,
         'content' : content,
-        'tags': tags.lower().split(", "),
+        'tags': tgs,
         #price attribute will keep changing based on what the highest bid is
         'price' : start_price,
         'highest_bidder' : None, #this will be someones username
         'time_start' : time_start,
         'time_ends' : time_ends,
-        'tags_string' : tags.lower(),
-        'tags_array' : tags.lower().split(", ")
+        'tags_array':tgs_array
     }
     #print post
     return posts.insert(post)
@@ -216,7 +217,7 @@ def get_posts(username):
         content = post['content']
         time_start = post['time_start']
         time_ends = post['time_ends']
-        tags = post['tags_string']
+        tags = post['tags']
         price = post['price']
     post_string = "username: " + username + "\n" + "title: " + title + "\n" + "content: " + content + "\n" + "start time: " + time_start + "\n" + "end time: " + time_ends + "\n" + "price: " + price + "\n" + "tags: " + tags
     return post_string
