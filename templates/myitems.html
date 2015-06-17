@@ -2,7 +2,9 @@
 
 {% block bodycontent %}
 
-<h1>MY ITEMS PAGE</h1>
+<center>
+    <h1-title>My Items</h1-title>
+</center>
 
 <a href="{{ url_for('newpost') }}">
     <button class="btn btn-default">Add item</button>
@@ -13,13 +15,29 @@
 
 <br>
 
+{% if myitems|length==0  %}
+<center>
+    <h2-header>You have no items yet!</h2-header>
+</center>
+{% endif %}
+
+{% for item in myitems %}
+
 <div class="panel panel-default">
     <div class="panel-heading">
-        <h3 class="panel-title">Panel title</h3>
+        <h3 class="panel-title">{{item[1]}}</h3>
     </div>
     <div class="panel-body">
-        Panel content
+        <small>Price: {{item[5]}}</small>
+        <p>{{item[2]}}</p>
+        <small>Start time: {{item[3]}}</small>
+        <small>End time: {{item[4]}}</small>
+    </div>
+    <div class="panel-footer">
+        {{item[6]}}
     </div>
 </div>
+
+{% endfor %}
 
 {% endblock bodycontent %}

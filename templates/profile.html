@@ -3,15 +3,18 @@
 {% block bodycontent %}
 <div class="container" style="max-width:450px;">
   <div class="text-center">
-    <h1>Welcome {{ name }}!</h1>
-    <img src={{ profilepicture }} height="300px" class="img-rounded">
+    <h1-title>Welcome {{ name }}!</h1-title>
+    <br>
+    <img src={{ profilepicture }} height="300px" class="img-rounded"/>
   </div>
   <div class="text-left">
-    <h2>{{ name }}'s  profile</h2>
-    <h3><small>Username: </small>{{ username }}</h3>
-    <h3><small>Name: </small>{{ name }}</h3>
-    <h3><small>Bio: </small>{{ bio }}</h3>
-    <br>
+    <h2-header>Your profile</h2-header>
+    <br/>
+    <h3-nice>Username <small>{{ username }}</small></h3-nice>
+    <br/>
+    <h3-nice>Name <small>{{ name }}</small></h3-nice>
+    <br/>
+    <h3-nice>Bio <small>{{ bio }}</small></h3-nice>
   </div>
   <div class="text-center">
     <form role="form" method="POST">
@@ -23,3 +26,4 @@
 </div>
 
 {% endblock bodycontent %}
+

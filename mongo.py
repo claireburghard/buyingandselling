@@ -209,18 +209,18 @@ def add_post(username, title, content, start_price, time_start, time_ends, tags)
     return posts.insert(post)
 
 def get_posts(username):
-    counter = 0
+    posts_list = []
     for post in posts.find({'username':username}):
-        counter = counter + 1
-        username = post['username']
-        title = post['title']
-        content = post['content']
-        time_start = post['time_start']
-        time_ends = post['time_ends']
-        tags = post['tags']
-        price = post['price']
-    post_string = "username: " + username + "\n" + "title: " + title + "\n" + "content: " + content + "\n" + "start time: " + time_start + "\n" + "end time: " + time_ends + "\n" + "price: " + price + "\n" + "tags: " + tags
-    return post_string
+        temp_post = []
+        temp_post[0] = post['username']
+        temp_post[1] = post['title']
+        temp_post[2] = post['content']
+        temp_post[3] = post['time_start']
+        temp_post[4] = post['time_ends']
+        temp_post[5] = post['price']
+        temp_post[6] = post['tags']
+        posts_list.append(temp_post)
+    return posts_list
 
 def bid(bidder_uname, poster_uname, post_title, new_price):
     post = posts.find_one({'username':poster_uname, 'title':post_title})
@@ -303,8 +303,6 @@ def get_messages(person1, person2):
 ##### ^^^^^ MESSAGING ^^^^^ #####
 
 ##### TESTING #####
-
-get_following_posts("claire")
 
 #the way the function calls work
 #def add_user(username,password,name, bio)
