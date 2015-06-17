@@ -2,17 +2,16 @@
 
 {% block bodycontent %}
 
-<div class="container" style="max-width:450px;">
-  <div class="text-center">
-    <h1>Welcome {{ name }}!</h1>
-    <img src={{ profilepicture }} height="300px" class="img-rounded">
-  </div>
-  <div class="text-left">
-    <h2>Your profile</h2>
-    <h3>Username <small>{{ username }}</small></h3>
-    <h3>Name <small>{{ name }}</small></h3>
-    <h3>Bio <small>{{ bio }}</small></h3>
-  </div>
+<div class="container">
+    <center>
+        <h1>Welcome {{ name }}!</h1>
+        <img src={{ profilepicture }} height="300px" class="img-rounded"/>
+    </center>
+    
+    <h2-subtitle>Your profile</h2-subtitle>
+    <h3-nice>Username <small>{{ username }}</small></h3-nice>
+    <h3-nice>Name <small>{{ name }}</small></h3-nice>
+    <h3-nice>Bio <small>{{ bio }}</small></h3-nice>
 </div>
 
 {% endblock bodycontent %}
