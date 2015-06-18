@@ -206,18 +206,6 @@ def newpost():
                 return redirect(url_for('myitems.html'))
 
 
-@app.route("/myactivity",methods=['GET','POST'])
-def myactivity():
-    if 'username' not in session:
-        return redirect(url_for('index'))
-    else:
-        if request.method=="GET":
-            return render_template('myactivity.html')
-        else:
-            if request.form['b']=="Logout":
-                return redirect(url_for('logout'))
-
-
 @app.route("/messages",methods=['GET','POST'])
 def messages():
     if 'username' not in session:
