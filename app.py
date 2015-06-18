@@ -203,7 +203,7 @@ def newpost():
                     return render_template("newpost.html", message = "Please fill in all fields correctly.")
                 mongo.add_post(user, title, content, start_price, time_start, time_ends, tags)
                 posts = mongo.get_posts(user)
-                return redirect(url_for('myitems.html'))
+                return redirect(url_for('myitems'))
 
 
 @app.route("/messages",methods=['GET','POST'])
