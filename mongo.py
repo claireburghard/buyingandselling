@@ -205,22 +205,27 @@ def add_post(username, title, content, start_price, time_start, time_ends, tags)
         'time_ends' : time_ends,
         'tags_array':tgs_array
     }
-    #print post
+    print post['tags']
     return posts.insert(post)
 
 def get_posts(username):
     posts_list = []
-    for post in posts.find({'username':username}):
-        temp_post = []
-        temp_post[0] = post['username']
-        temp_post[1] = post['title']
-        temp_post[2] = post['content']
-        temp_post[3] = post['time_start']
-        temp_post[4] = post['time_ends']
-        temp_post[5] = post['price']
-        temp_post[6] = post['tags']
-        posts_list.append(temp_post)
-    return posts_list
+    posts_data = posts.find({'username':username})
+    print posts_data
+    if posts_data == None:
+        return []
+    else:
+        for post in posts_data:
+            temp_post = []
+            temp_post.append(post['username'])
+            temp_post.append(post['title'])
+            temp_post.append(post['content'])
+            temp_post.append(post['time_start'])
+            temp_post.append(post['time_ends'])
+            temp_post.append(post['price'])
+            temp_post.append(post['tags'])
+            posts_list.append(temp_post)
+        return posts_list
 
 def bid(bidder_uname, poster_uname, post_title, new_price):
     post = posts.find_one({'username':poster_uname, 'title':post_title})
@@ -285,20 +290,10 @@ def add_message(person1, person2, new_message):
         'messages': mess } )
     return
 
-def get_messages(person1, person2):
-    conversation = messages.find_one({'person1':person1, 'person2':person2})
-    print 1
-    print conversation
-    
-    if conversation == None:
-        conversation = messages.find_one({'person1':person2, 'person2':person1})
-    if conversation == None:
-         return "users not found"
-
-    print 2
-    print conversation
-    mess = conversation['messages']
-    return mess
+#def get_messages(username):
+#   conversations = messages.find( { $or:[{'person1':username},{'person2':username }] })
+#   if conversations == None:
+# for convo in conversations
 
 ##### ^^^^^ MESSAGING ^^^^^ #####
 

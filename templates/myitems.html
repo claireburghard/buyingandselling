@@ -23,18 +23,22 @@
 
 {% for item in myitems %}
 
-<div class="panel panel-default">
+<div class="panel panel-info">
     <div class="panel-heading">
-        <h3 class="panel-title">{{item[1]}}</h3>
+        <h1 class="panel-title">{{item[1]}}</h1>
     </div>
     <div class="panel-body">
-        <small>Price: {{item[5]}}</small>
-        <p>{{item[2]}}</p>
-        <small>Start time: {{item[3]}}</small>
+      <div class="well well-sm">
+	<h3>{{item[1]}}</h3>
+	<h4>{{item[2]}}</h4></div>
+      <div class="well well-sm">
+	<small>Price: {{item[5]}}</small><br>
+	<small>Start time: {{item[3]}}</small>
         <small>End time: {{item[4]}}</small>
+      </div>
     </div>
-    <div class="panel-footer">
-        {{item[6]}}
+<div class="panel-footer">
+  {{item[6]}}
     </div>
 </div>
 

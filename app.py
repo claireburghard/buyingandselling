@@ -199,7 +199,7 @@ def newpost():
                     return render_template("newpost.html", message = "Please fill in all fields correctly.")
                 mongo.add_post(user, title, content, start_price, time_start, time_ends, tags)
                 posts = mongo.get_posts(user)
-                return render_template('myitems.html', message=posts)
+                return redirect(url_for('myitems.html'))
 
 
 @app.route("/myactivity",methods=['GET','POST'])
@@ -219,8 +219,9 @@ def messages():
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
+        msgs = get_messages(session['username'])
         if request.method=="GET":
-            return render_template('messages.html')
+            return render_template('messages.html', messages = msgs)
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
