@@ -1,26 +1,23 @@
 {% extends "home.html" %}
 
 {% block bodycontent %}
-<ul>
-<li>shows message log and user</li>
-<li>can respond to messages</li>
-</ul>
-
-<div class="input-group">
-  <input type="text" class="form-control" placeholder="Respond">
-  <span class="input-group-btn">
-    <button class="btn btn-default" type="button">Submit</button>
-  </span>
-</div>
+<h2-header>{{otheruser}}</h2-header><br>
+<form role="form" method="POST">
+  <div class="input-group">
+    <input type="text" class="form-control" name="response" placeholder="Respond">
+    <span class="input-group-btn">
+      <input type="submit" name="b" class="btn btn-default" value="Submit">
+    </span>
+  </div>
+</form>
 <br>
+
 <div class="panel panel-default">
   <ul class="list-group">
-    <li class="list-group-item">
-      your last message</li>
-    <li class="list-group-item">
-      other persons last message
-    </li>
-  </div> 
+    {% for item in messlog %}
+    <li class="list-group-item">{{item}}</li>
+    {% endfor %}
+</div> 
 </div>
 
 {% endblock bodycontent %}

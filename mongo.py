@@ -299,14 +299,23 @@ def add_message(person1, person2, new_message):
     p2 = conversation['person2']
     mess = conversation['messages']
     print mess
-    #mess = mess.insert(0, new_message) #adds to the front of the list
+    #mess.insert(0, new_message) #adds to the front of the list
     db.messages.update( {'person1':p1, 'person2':p2}, {
         'person1':p1,
         'person2': p2,
         'messages': mess } )
     return
 
-def get_messages(username):
+def get_messages(curruser,op):
+    messages_list=[]
+    conversation = messages.find_one({'person1': curruser, 'person2': op})
+    if conversation == None:
+        conversation = messages.find_one({'person1': op, 'person2': curruser})
+    messages_list = conversation['messages']
+    return messages_list
+
+
+def get_conversations(username):
     messages_list=[]
     for message in messages.find({'person1':username}):
         temp_message = []

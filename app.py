@@ -223,7 +223,7 @@ def messages():
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
-        msgs = mongo.get_messages(session['username'])
+        msgs = mongo.get_conversations(session['username'])
         if request.method=="GET":
             return render_template('messages.html',currentuser=session['username'], messages = msgs)
         else:
@@ -238,10 +238,21 @@ def viewmessage(otheruser):
         if request.method=="GET":
             return render_template('viewmessage.html',
                                    otheruser=otheruser,
-                                   currentuser=session['username'])
+                                   currentuser=session['username'],
+                                   messlog=mongo.get_messages(session['username'],otheruser))
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
+            if request.form['b']=="Submit":
+                response = request.form['response']
+                if response == "":
+                    render_template('viewmessage.html',
+                                   otheruser=otheruser,
+                                   currentuser=session['username'],
+                                   messlog=mongo.get_messages(session['username'],otheruser))
+                mongo.add_message(session['username'],otheruser,response)
+                return redirect(url_for('viewmessage', otheruser=otheruser))
+                
 
 @app.route("/newmessage",methods=['GET','POST'])
 def newmessage():
@@ -266,8 +277,7 @@ def newmessage():
                     message_list=[]
                     message_list.append(content)
                     mongo.add_conversation(user, op, message_list)
-                #posts = mongo.get_posts(user)
-                return redirect(url_for('viewmessage', otheruser=op))
+                    return redirect(url_for('viewmessage', otheruser=op))
         
     
 @app.route("/logout")
