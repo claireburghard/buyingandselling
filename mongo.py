@@ -211,7 +211,24 @@ def add_post(username, title, content, start_price, time_start, time_ends, tags)
 def get_posts(username):
     posts_list = []
     posts_data = posts.find({'username':username})
-    print posts_data
+    if posts_data == None:
+        return []
+    else:
+        for post in posts_data:
+            temp_post = []
+            temp_post.append(post['username'])
+            temp_post.append(post['title'])
+            temp_post.append(post['content'])
+            temp_post.append(post['time_start'])
+            temp_post.append(post['time_ends'])
+            temp_post.append(post['price'])
+            temp_post.append(post['tags'])
+            posts_list.append(temp_post)
+        return posts_list
+
+def get_all_posts():
+    posts_list = []
+    posts_data = posts.find()
     if posts_data == None:
         return []
     else:

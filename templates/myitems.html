@@ -21,25 +21,34 @@
 </center>
 {% endif %}
 
+
 {% for item in myitems %}
 
 <div class="panel panel-info">
-    <div class="panel-heading">
-        <h1 class="panel-title">{{item[1]}}</h1>
-    </div>
-    <div class="panel-body">
-      <div class="well well-sm">
-	<h3>{{item[1]}}</h3>
-	<h4>{{item[2]}}</h4></div>
-      <div class="well well-sm">
-	<small>Price: {{item[5]}}</small><br>
-	<small>Start time: {{item[3]}}</small>
-        <small>End time: {{item[4]}}</small>
+  <div class="panel-heading">
+    <h1 class="panel-title">{{item[1]}}</h1>
+  </div>
+  <div class="panel-body">
+    <div class="media">
+      <div class="media-body">
+	<h4 class="media-heading">{{item[1]}}</h4>
+	<h5>{{item[2]}}</h5>
+      </div>
+      <div class="media-right">
+	<a href="#">
+	  <img class="media-object" src="..." alt="what">
+	</a>
       </div>
     </div>
-<div class="panel-footer">
-  {{item[6]}}
+    <div class="well well-sm">
+      <small>Price: {{item[5]}}</small><br>
+      <small>Start time: {{item[3]}}</small>
+      <small>End time: {{item[4]}}</small>
     </div>
+  </div>
+  <div class="panel-footer">
+    {{item[6]}}
+  </div>
 </div>
 
 {% endfor %}

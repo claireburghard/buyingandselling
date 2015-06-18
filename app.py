@@ -158,7 +158,7 @@ def market():
         return redirect(url_for('index'))
     else:
        if request.method=="GET":
-           return render_template('market.html')
+           return render_template('market.html', posts = mongo.get_all_posts())
        else:
            if request.form['b']=="Logout":
                return redirect(url_for('logout'))
@@ -170,7 +170,7 @@ def myitems():
     else:
         message = ""
         if request.method=="GET":
-            return render_template('myitems.html', message = message, myitems = mongo.get_posts( session["username"] ))
+            return render_template('myitems.html',message=message, myitems = mongo.get_posts( session["username"] ))
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))

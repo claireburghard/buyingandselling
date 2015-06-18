@@ -2,8 +2,47 @@
 
 {% block bodycontent %}
 
-<h1>MARKET PAGE</h1>
+<h1-title>The Market</h1-title>
 
 <!-- this should probably have some kind of content -->
+
+{% if posts|length==0  %}
+<center>
+    <h2-header>No one is selling anything right now, sorry!</h2-header>
+</center>
+{% endif %}
+
+
+{% for item in posts %}
+
+<div class="panel panel-info">
+  <div class="panel-heading">
+    <h1 class="panel-title">{{item[1]}}</h1>
+    <h1 class="panel-title">{{item[0]}}</h1>
+  </div>
+  <div class="panel-body">
+    <div class="media">
+      <div class="media-body">
+	<h4 class="media-heading">{{item[1]}}</h4>
+	<h5>{{item[2]}}</h5>
+      </div>
+      <div class="media-right">
+	<a href="#">
+	  <img class="media-object" src="..." alt="what">
+	</a>
+      </div>
+    </div>
+    <div class="well well-sm">
+      <small>Price: {{item[5]}}</small><br>
+      <small>Start time: {{item[3]}}</small>
+      <small>End time: {{item[4]}}</small>
+    </div>
+  </div>
+  <div class="panel-footer">
+    {{item[6]}}
+  </div>
+</div>
+
+{% endfor %}
 
 {% endblock bodycontent %}
