@@ -163,6 +163,8 @@ def market():
            if request.form['b']=="Logout":
                return redirect(url_for('logout'))
 
+
+
 @app.route("/myitems",methods=['GET','POST'])
 def myitems():
     if 'username' not in session:
@@ -174,6 +176,8 @@ def myitems():
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
+
+
 
 @app.route("/newpost",methods=['GET','POST'])
 def newpost():
@@ -219,9 +223,9 @@ def messages():
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
-        msgs = get_messages(session['username'])
+        msgs = mongo.get_messages(session['username'])
         if request.method=="GET":
-            return render_template('messages.html', messages = msgs)
+            return render_template('messages.html',currentuser=session['username'], messages = msgs)
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
@@ -238,6 +242,32 @@ def viewmessage(otheruser):
         else:
             if request.form['b']=="Logout":
                 return redirect(url_for('logout'))
+
+@app.route("/newmessage",methods=['GET','POST'])
+def newmessage():
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    else:
+        message = ""
+        if request.method=="GET":
+            return render_template('newmessage.html', message = message)
+        else:
+            if request.form['b']=="Logout":
+                return redirect(url_for('logout'))
+            if request.form['b']=="Submit":
+                user = session['username']
+                op = request.form['op']
+                content = request.form['content']
+                if (op == "" or content == ""):
+                    return render_template("newmessage.html", message = "Please fill in all fields correctly.")
+                elif mongo.user_exists(op) == "does not exist":
+                     return render_template("newmessage.html", message = "That user does not exist.")
+                else:
+                    message_list=[]
+                    message_list.append(content)
+                    mongo.add_conversation(user, op, message_list)
+                #posts = mongo.get_posts(user)
+                return redirect(url_for('viewmessage', otheruser=op))
         
     
 @app.route("/logout")

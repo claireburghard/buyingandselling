@@ -1,24 +1,42 @@
 {% extends "home.html" %}
 
 {% block bodycontent %}
-<h1>Messages</h1>
+<center>
+  <h1-title>Messages</h1-title>
+</center>
 
-<ul>
-    <li>shows all messages with distinguishing between new &amp; read messages</li>
-    <li>clickthrough to view message log with ability to send response</li>
-</ul> <!-- i imagine this is going away after we have some kind of content? -->
+<a href="{{ url_for('newmessage') }}">
+  <button class="btn btn-default">New Message</button>
+</a> <br><br>
+
+{% if messages|length==0  %}
+<center>
+  <h2-header>You have no messages yet!</h2-header>
+</center>
+{% endif %}
 
 <div class="panel panel-default">
-    <div class="list-group">
-        
-        <a href="/viewmessage/username" class="list-group-item">
-            <span class="badge">0</span> <!-- this needs to not be hardcoded -->
-            <h4 class="list-group-item-heading">Username</h4>
-            <p class="list-group-item-text">last message read</p>
-            <!-- needs content -->
-        </a>
-        
-    </div> <!--/.list-group-->
+  {% for item in messages %}
+
+  <div class="list-group">
+    {% if item[0] == currentuser %}
+    <a href="{{url_for('viewmessage',otheruser=item[1])}}" class="list-group-item">
+      {% else %}
+      <a href="{{url_for('viewmessage',otheruser=item[0])}}" class="list-group-item">
+	{% endif %}
+	<span class="badge">0</span> <!-- this needs to not be hardcoded -->
+	{% if item[0] == currentuser %}
+	<h4 class="list-group-item-heading">{{item[1]}}</h4>
+	{% else %}
+	<h4 class="list-group-item-heading">{{item[0]}}</h4>
+	{% endif %}
+	<p class="list-group-item-text">{{item[2][0]}}</p>
+	<!-- needs content -->
+      </a>
+      
+  </div> <!--/.list-group-->
+  {% endfor %}
+
 </div> <!--/.panel---->
 
 {% endblock bodycontent %}

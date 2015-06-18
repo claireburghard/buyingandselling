@@ -1,0 +1,21 @@
+{% extends "home.html" %}
+
+{% block bodycontent %}
+<center><h3>{{message}}</h3></center><br>
+
+<div class="container" style="max-width:730px;">
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title">New Message</h3>
+    </div>
+    <div class="panel-body">
+      <form role="form" method="POST">
+	<p><input type="text" class="form-control" name="op" placeholder="Who are you sending this to?"></p>
+	<p><input type="text" class="form-control" name="content" placeholder="What do you want to say?"></p>
+	<input type="submit" name="b" class="btn btn-default" value="Submit">
+      </form>
+    </div>
+</div>
+</div><!-- /.container -->
+
+{% endblock bodycontent %}

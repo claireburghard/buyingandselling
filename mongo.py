@@ -205,7 +205,6 @@ def add_post(username, title, content, start_price, time_start, time_ends, tags)
         'time_ends' : time_ends,
         'tags_array':tgs_array
     }
-    print post['tags']
     return posts.insert(post)
 
 def get_posts(username):
@@ -307,10 +306,21 @@ def add_message(person1, person2, new_message):
         'messages': mess } )
     return
 
-#def get_messages(username):
-#   conversations = messages.find( { $or:[{'person1':username},{'person2':username }] })
-#   if conversations == None:
-# for convo in conversations
+def get_messages(username):
+    messages_list=[]
+    for message in messages.find({'person1':username}):
+        temp_message = []
+        temp_message.append(message['person1'])
+        temp_message.append(message['person2'])
+        temp_message.append(message['messages'])
+        messages_list.append(temp_message)
+    for message in messages.find({'person2':username}):
+        temp_message = []
+        temp_message.append(message['person1'])
+        temp_message.append(message['person2'])
+        temp_message.append(message['messages'])
+        messages_list.append(temp_message)
+    return messages_list
 
 ##### ^^^^^ MESSAGING ^^^^^ #####
 

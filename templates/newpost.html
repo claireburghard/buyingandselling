@@ -1,0 +1,25 @@
+{% extends "home.html" %}
+
+{% block bodycontent %}
+<center><h3>{{message}}</h3></center><br>
+
+<div class="container" style="max-width:730px;">
+<div class="panel panel-info">
+    <div class="panel-heading">
+        <h3 class="panel-title"> Add a new item!</h3>
+    </div>
+    <div class="panel-body">
+       <form role="form" method="POST">
+	<p><input type="text" class="form-control" name="title" placeholder="What are you selling?"></p>
+	<p><input type="text" class="form-control" name="content" placeholder="Description of the item"></p>
+	<p><input type="text" class="form-control" name="start_price" placeholder="Starting price"></p>
+	<p><input type="text" class="form-control" name="time_start" placeholder="Time Start"></p>
+	<p><input type="text" class="form-control" name="time_ends" placeholder="When does the bidding end?"></p>
+	<p><input type="text" class="form-control" name="tags" placeholder="Add some tags seperate by comma"></p>
+	<input type="submit" name="b" class="btn btn-default" value="Submit">
+      </form>
+    </div>
+</div>
+</div><!-- /.container -->
+
+{% endblock bodycontent %}
