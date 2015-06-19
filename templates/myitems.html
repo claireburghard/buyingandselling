@@ -26,28 +26,26 @@
 
 <div class="panel panel-info">
   <div class="panel-heading">
-    <h1 class="panel-title">{{item[1]}}</h1>
+    <h3>{{item[1]}}</h3>
   </div>
   <div class="panel-body">
     <div class="media">
       <div class="media-body">
-	<h4 class="media-heading">{{item[1]}}</h4>
-	<h5>{{item[2]}}</h5>
+	<h2-header>{{item[1]}}</h2-header>
+	<h3>{{item[2]}}</h3>
       </div>
       <div class="media-right">
-	<a href="#">
-	  <img class="media-object" src="..." alt="what">
-	</a>
+	  <img class="media-object" src={{item[3]}} height="250px" alt="what"><br>
       </div>
     </div>
     <div class="well well-sm">
-      <small>Price: {{item[5]}}</small><br>
-      <small>Start time: {{item[3]}}</small>
-      <small>End time: {{item[4]}}</small>
+      Price: {{item[6]}}<br>
+      Start time: {{item[4]}}<br>
+      End time: {{item[5]}}
     </div>
   </div>
   <div class="panel-footer">
-    {{item[6]}}
+    {{item[7]}}
   </div>
 </div>
 

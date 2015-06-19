@@ -25,16 +25,18 @@ def login():
         if request.method=="GET":
             return render_template("login.html", message = message)
         else:
-            username = request.form["logusername"]
-            password = request.form["logpassword"]
-            confirmation = mongo.authenticate(username,password)
-            if confirmation != "match":
-                message = confirmation
-                return render_template("login.html", message = message)
-            if confirmation == "match":
-                session['username'] = username
-                return redirect(url_for('home'))
-
+            if request.form['b']=="Log In":
+                username = request.form["logusername"]
+                password = request.form["logpassword"]
+                confirmation = mongo.authenticate(username,password)
+                if confirmation != "match":
+                    message = confirmation
+                    return render_template("login.html", message = message)
+                if confirmation == "match":
+                    session['username'] = username
+                    return redirect(url_for('home'))
+            if request.form['b']=="Cancel":
+                return redirect(url_for('index'))
 
 @app.route("/register",methods=['GET','POST'])
 def register():
@@ -45,23 +47,23 @@ def register():
         if request.method=="GET":
             return render_template("register.html", message = message)
         else:
-            username = request.form["regusername"]
-            password = request.form["regpassword"]
-            password2 = request.form["regpassword2"]
-            bio = request.form['bio']
-            name = request.form["name"]
-            if mongo.user_exists(username) == "exists":
-                message = "Someone already has this username. Please use a different one."
-                return render_template("register.html", message = message)
-            else:
-                if password == password2:
-                    mongo.add_user(username, password, name, bio)
-                    message = "Registration sucessful! Log in to get started."
-                    return  redirect(url_for('signup'))
-                else:
-                    message = "Please make sure your passwords match."
+            if request.form['b']=="Register":
+                username = request.form["regusername"]
+                password = request.form["regpassword"]
+                password2 = request.form["regpassword2"]
+                if mongo.user_exists(username) == "exists":
+                    message = "Someone already has this username. Please use a different one."
                     return render_template("register.html", message = message)
-
+                else:
+                    if password == password2:
+                        mongo.add_user(username, password)
+                        session['username']=username
+                        return  redirect(url_for('signup'))
+                    else:
+                        message = "Please make sure your passwords match."
+                        return render_template("register.html", message = message)
+            if request.form['b']=="Cancel":
+                return redirect(url_for('index'))
 
 @app.route("/home",methods=['GET','POST'])
 def home():
@@ -83,7 +85,27 @@ def signup():
         return redirect(url_for('index'))
     else:
         if request.method=="GET":
-            return render_template('signup.html')
+            username = session['username']
+            return render_template('signup.html',username=username)
+        else:
+            if request.form['b']=="Submit":
+                username = session['username']
+                if request.form['name']!="":
+                    name = request.form['name']
+                else:
+                    name = mongo.get_name(username)
+                if request.form['picture']!="":
+                    picture = request.form['picture']
+                else:
+                    picture = mongo.get_profilepicture(username)
+                if request.form['bio']!="":
+                    bio = request.form['bio']
+                else:
+                    bio = mongo.get_bio(username)
+                mongo.update_name(username,name)
+                mongo.update_profilepicture(username,picture)
+                mongo.update_bio(username,bio)
+                return redirect(url_for('home'))
 
 
 @app.route("/profile",methods=['GET','POST'])
@@ -194,14 +216,15 @@ def newpost():
                 user = session['username']
                 title = request.form['title']
                 content = request.form['content']
+                picture = request.form ['picture']
                 start_price = request.form['start_price']
                 time_start = request.form['time_start']
                 time_ends = request.form['time_ends']
                 tags = request.form['tags']
-                if (title == "" or content == "" or start_price == "" or 
+                if (title == "" or content == "" or picture=="" or start_price == "" or 
                     time_start == "" or time_ends == "" or tags == ""):
                     return render_template("newpost.html", message = "Please fill in all fields correctly.")
-                mongo.add_post(user, title, content, start_price, time_start, time_ends, tags)
+                mongo.add_post(user, title, content, picture, start_price, time_start, time_ends, tags)
                 posts = mongo.get_posts(user)
                 return redirect(url_for('myitems'))
 

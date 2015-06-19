@@ -7,12 +7,12 @@ posts = db.posts
 messages = db.messages
 
 ##### USER #####
-def add_user( username, password, name, bio ):
+def add_user( username, password):
     user = {
         'username' : username,
         'password' : password,
-        'name' : name,
-        'bio' : bio,
+        'name' : "",
+        'bio' : "",
         'rating' : 4,
         'ratings' : 2,
         'profilepicture' : "http://cliparts.co/cliparts/qTB/6x8/qTB6x8zT5.svg"
@@ -190,13 +190,14 @@ def rate(username, new_rating):
 ##### ^^^^^ USER ^^^^^ #####
 
 ##### POSTS #####
-def add_post(username, title, content, start_price, time_start, time_ends, tags):
+def add_post(username, title, content, picture, start_price, time_start, time_ends, tags):
     tgs = tags.lower()
     tgs_array = tgs.split(",")
     post = {
         'username' : username,
         'title': title,
         'content' : content,
+        'picture':picture,
         'tags': tgs,
         #price attribute will keep changing based on what the highest bid is
         'price' : start_price,
@@ -218,6 +219,7 @@ def get_posts(username):
             temp_post.append(post['username'])
             temp_post.append(post['title'])
             temp_post.append(post['content'])
+            temp_post.append(post['picture'])
             temp_post.append(post['time_start'])
             temp_post.append(post['time_ends'])
             temp_post.append(post['price'])
@@ -236,6 +238,7 @@ def get_all_posts():
             temp_post.append(post['username'])
             temp_post.append(post['title'])
             temp_post.append(post['content'])
+            temp_post.append(post['picture'])
             temp_post.append(post['time_start'])
             temp_post.append(post['time_ends'])
             temp_post.append(post['price'])
@@ -245,10 +248,11 @@ def get_all_posts():
 
 def bid(bidder_uname, poster_uname, post_title, new_price):
     post = posts.find_one({'username':poster_uname, 'title':post_title})
-    
+
     username = post['username']
     title = post['title']
     content = post['content']
+    picture = post['picture']
     time_start = post['time_start']
     time_ends = post['time_ends']
     tags = post['tags_string']
@@ -262,6 +266,7 @@ def bid(bidder_uname, poster_uname, post_title, new_price):
                      'title': title,
                      'content': content,
                      'price': new_price,
+                     'picture':picture,
                      'highest_bidder': bidder_uname,
                      'time_start': time_start,
                      'time_ends': time_ends,
@@ -344,6 +349,6 @@ def get_conversations(username):
 #def update_name(username, new_name)
 #db.users.remove()
 #db.posts.remove()
+#db.messages.remove()
 #print db.users
 #print db.posts
-#db.messages.remove()

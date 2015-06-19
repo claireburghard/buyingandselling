@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block bodycontent %}
 
-<h1>Register</h1>
+<br><h1-title>Register</h1-title><br><br>
 
 {{message}}
 
 <div>
-    <h2>Sign up here</h2>
+    <h2-header>Sign up here:</h2-header><br><br>
     <form role="form" method="POST">
         <p>
             <input type="text" class="form-control" name="regusername" placeholder="Username"/>
@@ -17,19 +17,13 @@
         <p>
             <input type="password" class="form-control" name="regpassword2" placeholder="Confirm Password"/>
         </p>
-        <p>
-            <input type="text" class="form-control" name="name" placeholder="Name"/>
-        </p>
-   <p>
-            <input type="text" class="form-control" name="bio" placeholder="Bio"/>
-        </p>
-        <p>
+        <br><p>
             <input type="submit" name="b" class="btn btn-default" value="Register"/>
             <input type="submit" name="b" class="btn btn-default" value="Cancel"/>
         </p>
     </form>
-        <p>
-          Already have an account? Log in here!
+        <br><br><p>
+          <h2-header>Already have an account?<br>Log in here!</h2-header>
           <br>
 	  <form action="{{ url_for('login') }}">
 	    <input type="submit" class="btn btn-default" value="Login">

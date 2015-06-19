@@ -3,22 +3,23 @@
 <br><br>
 <div class="panel panel-info">
   <div class="panel-heading">
-    <h1>Welcome to Buying and Selling!</h1><br>
-    <h3  class="panel-title">Please take a few minutes to fill out this information before you get started.</h3>
+    <h1>Welcome to Buying and Selling!</h1>
   </div>
   <div class="panel-body">
-    <div class="well well-sm">
-      <form>
-	<div class="form-group">
-	  <label for="exampleInputFile">File input</label>
-	  <input type="file" id="exampleInputFile"/>
-	</div>
-      </form>
-    </div>
-    <form action="{{ url_for('home') }}">
-      <input type="submit" class="btn btn-default" value="Continue">
+    <h2-header>Please take a few minutes to fill out this information before you get started.</h2-header><br>
+    <form role="form" method="POST"> 
+      <div class="well well-sm">
+	<h2-header>Name:</h2-header>
+	<input type="text" class="form-control" name="name" placeholder="What name would you like to be called?"><br>
+	<h2-header>Profile picture:</h2-header>
+	<input type="text" class="form-control" name="picture" placeholder="Paste the url of the image you would like your profile picture to be"><br>
+	<h2-header>Bio:</h2-header>
+	<input type="text" class="form-control" name="bio" placeholder="Please tell us a little about yourself">
+      </div><!----well--->
+      <br><input type="submit" class="btn btn-default" name="b" value="Submit">
     </form>
-  </div>
-</div>
+  </div><!---panelbody--->
+</div><!---panel--->
 
-{%endblock bodycontent %}
+
+{% endblock bodycontent %}

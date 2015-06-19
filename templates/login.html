@@ -1,12 +1,12 @@
 {% extends "base.html" %}
 {% block bodycontent %}
 
-<h1>Log In</h1>
+<br><h1-title>Log In</h1-title><br><br>
 
 {{message}}
 
 <div>
-    <h2>Have an account? Sign in here</h2>
+    <h2-header>Sign in here:</h2-header><br><br>
     <form role="form" method="POST">
         <p>
             <input type="text" class="form-control" name="logusername" placeholder="Username"/>
@@ -19,8 +19,8 @@
             <input type="submit" name="b" class="btn btn-default" value="Cancel"/>
         </p>
     </form>
-        <p>
-          Don't have an account yet? Register here!
+        <br><br><p>
+          <h2-header>Don't have an account yet?<br> Register here!</h2-header>
           <br>
           <form action="{{ url_for('register') }}">
 	    <input type="submit" class="btn btn-default" value="Register">
