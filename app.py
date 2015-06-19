@@ -195,7 +195,18 @@ def market():
            if request.form['b']=="Logout":
                return redirect(url_for('logout'))
 
-
+@app.route("/viewpost/<postid>",methods=['GET','POST'])
+def viewpost(postid):
+    if 'username' not in session:
+        return redirect(url_for('index'))
+    else:
+        thing = postid
+        print thing
+        if request.method=="GET":
+            return render_template('viewpost.html', post = mongo.find_post(postid)[0])
+        else:
+            if request.form['b']=="Logout":
+               return redirect(url_for('logout'))
 
 @app.route("/myitems",methods=['GET','POST'])
 def myitems():

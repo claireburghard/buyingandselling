@@ -4,39 +4,40 @@
 <center>
   <h1-title>Messages</h1-title>
 </center>
+<div class="container" style="maxwidth:800px;">
+  <a href="{{ url_for('newmessage') }}">
+    <button class="btn btn-default">New Message</button>
+  </a> <br><br>
 
-<a href="{{ url_for('newmessage') }}">
-  <button class="btn btn-default">New Message</button>
-</a> <br><br>
+  {% if messages|length==0  %}
+  <center>
+    <h2-header>You have no messages yet!</h2-header>
+  </center>
+  {% else %}
 
-{% if messages|length==0  %}
-<center>
-  <h2-header>You have no messages yet!</h2-header>
-</center>
-{% endif %}
+  <div class="panel panel-default">
+    {% for item in messages %}
 
-<div class="panel panel-default">
-  {% for item in messages %}
-
-  <div class="list-group">
-    {% if item[0] == currentuser %}
-    <a href="{{url_for('viewmessage',otheruser=item[1])}}" class="list-group-item">
-      {% else %}
-      <a href="{{url_for('viewmessage',otheruser=item[0])}}" class="list-group-item">
-	{% endif %}
-	<span class="badge">0</span> <!-- this needs to not be hardcoded -->
-	{% if item[0] == currentuser %}
-	<h4 class="list-group-item-heading">{{item[1]}}</h4>
+    <div class="list-group">
+      {% if item[0] == currentuser %}
+      <a href="{{url_for('viewmessage',otheruser=item[1])}}" class="list-group-item">
 	{% else %}
-	<h4 class="list-group-item-heading">{{item[0]}}</h4>
-	{% endif %}
-	<p class="list-group-item-text">{{item[2][0]}}</p>
-	<!-- needs content -->
-      </a>
-      
-  </div> <!--/.list-group-->
-  {% endfor %}
+	<a href="{{url_for('viewmessage',otheruser=item[0])}}" class="list-group-item">
+	  {% endif %}
+	  <span class="badge">0</span> <!-- this needs to not be hardcoded -->
+	  {% if item[0] == currentuser %}
+	  <h4 class="list-group-item-heading">{{item[1]}}</h4>
+	  {% else %}
+	  <h4 class="list-group-item-heading">{{item[0]}}</h4>
+	  {% endif %}
+	  <p class="list-group-item-text">{{item[2][0]}}</p>
+	  <!-- needs content -->
+	</a>
+	
+    </div> <!--/.list-group-->
+    {% endfor %}
 
-</div> <!--/.panel---->
-
+  </div> <!--/.panel---->
+</div><!---container--->
+{% endif %}
 {% endblock bodycontent %}

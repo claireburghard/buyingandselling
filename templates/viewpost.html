@@ -1,0 +1,48 @@
+{% extends "home.html" %}
+
+{% block bodycontent %}
+
+<div class="container" style="max-width:800px;">
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h4 style="text-align:left;">{{post['title']}}
+	<small><span style="float:right;"><a href="{{url_for('profile',user=post['username'])}}">{{post['username']}}</a></span></small></h4>
+    </div>
+    <div class="panel-body">
+      <div class="media">
+	<div class="media-left">
+	  <img class="img-rounded" src={{post['picture']}} height="250px" width="250px" alt="what"><br><br>
+	</div>
+	<div class="media-body">
+	  <ul class="list-group">
+	    <li class="list-group-item">
+	      <h4 style="text-align:left;">
+		Start of Bidding: {{post['time_start']}} 
+		<span style="float:right;">End of Bidding: {{post['time_ends']}}</span>
+	      </h4>
+	    </li>
+	    <li class="list-group-item">
+	      <h4>{{post['content']}}</h4>
+	    </li>
+	  </ul>
+	</div><!---media body--->
+      </div><!---media--->
+      <div class="well well-sm">
+	<h4> Current Price: {{post['price']}}</h4>
+	<form role="form" method="POST">
+	  <div class="input-group">
+	    <input type="text" class="form-control" name="bid" placeholder="Raise the bid">
+	    <span class="input-group-btn">
+	      <input type="submit" name="b" class="btn btn-default" value="Submit">
+	    </span>
+	  </div>
+	</form>
+      </div><!---well--->
+    </div><!---panel body--->
+    <div class="panel-footer">
+      {{post['tags']}}
+    </div>
+  </div>
+</div>
+
+{% endblock bodycontent %}

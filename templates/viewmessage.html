@@ -1,23 +1,22 @@
 {% extends "home.html" %}
 
 {% block bodycontent %}
-<h1-title><a href="{{url_for('profile',user=otheruser)}}">{{otheruser}}:</a></h1-title><br><br>
-<form role="form" method="POST">
-  <div class="input-group">
-    <input type="text" class="form-control" name="response" placeholder="Respond">
-    <span class="input-group-btn">
-      <input type="submit" name="b" class="btn btn-default" value="Submit">
-    </span>
-  </div>
-</form>
-<br>
-
-<div class="panel panel-default">
-  <ul class="list-group">
-    {% for item in messlog %}
-    <li class="list-group-item">{{item}}</li>
-    {% endfor %}
-</div> 
+<div class="container" style="max-width:800px;">
+  <h1-title><a href="{{url_for('profile',user=otheruser)}}">{{otheruser}}:</a></h1-title><br><br>
+  <form role="form" method="POST">
+    <div class="input-group">
+      <input type="text" class="form-control" name="response" placeholder="Respond">
+      <span class="input-group-btn">
+	<input type="submit" name="b" class="btn btn-default" value="Submit">
+      </span>
+    </div>
+  </form>
+  <br><div class="panel panel-default">
+    <ul class="list-group">
+      {% for item in messlog %}
+      <li class="list-group-item">{{item}}</li>
+      {% endfor %}
+  </div> 
 </div>
 
 {% endblock bodycontent %}

@@ -1,4 +1,7 @@
+import pymongo
 from pymongo import MongoClient
+from bson.objectid import ObjectId
+
 
 client = MongoClient('localhost', 27017)
 db = client.proj
@@ -248,6 +251,7 @@ def get_posts(username):
     else:
         for post in posts_data:
             temp_post = []
+            temp_post.append(post['_id'])
             temp_post.append(post['username'])
             temp_post.append(post['title'])
             temp_post.append(post['content'])
@@ -259,6 +263,14 @@ def get_posts(username):
             posts_list.append(temp_post)
         return posts_list
 
+def find_post(post_id):
+    data = []
+    post_data = list(posts.find({'_id':ObjectId(post_id)}))
+    if post_data == None:
+        return []
+    else:
+        return post_data
+
 def get_all_posts():
     posts_list = []
     posts_data = posts.find()
@@ -267,6 +279,7 @@ def get_all_posts():
     else:
         for post in posts_data:
             temp_post = []
+            temp_post.append(post['_id'])
             temp_post.append(post['username'])
             temp_post.append(post['title'])
             temp_post.append(post['content'])
@@ -276,6 +289,7 @@ def get_all_posts():
             temp_post.append(post['price'])
             temp_post.append(post['tags'])
             posts_list.append(temp_post)
+        print posts_list
         return posts_list
 
 def bid(bidder_uname, poster_uname, post_title, new_price):

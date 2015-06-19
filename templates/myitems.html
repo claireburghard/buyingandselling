@@ -3,52 +3,45 @@
 {% block bodycontent %}
 
 <center>
-    <h1-title>My Items</h1-title>
+  <h1-title>My Items</h1-title>
 </center>
-
-<a href="{{ url_for('newpost') }}">
+<div class="container" style="max-width:600px;">
+  <a href="{{ url_for('newpost') }}">
     <button class="btn btn-default">Add item</button>
-</a> <br>
-
-{{ message }}
-
-
-<br>
-
-{% if myitems|length==0  %}
-<center>
+  </a><br>
+  {{ message }}
+  <br>
+  {% if myitems|length==0  %}
+  <center>
     <h2-header>You have no items yet!</h2-header>
-</center>
-{% endif %}
+  </center>
+  {% endif %}
 
-<div class="container" style="max-width:800px;">
-{% for item in myitems %}
-
-<div class="panel panel-info">
-  <div class="panel-heading">
-    <h3>{{item[1]}}</h3>
-  </div>
-  <div class="panel-body">
-    <div class="media">
-      <div class="media-left">
-	  <img class="img-rounded" src={{item[3]}} height="250px" width="250px" alt="what"><br><br>
-      </div>
-      <div class="media-body">
-	<h2-header>{{item[1]}}</h2-header>
-	<h3>{{item[2]}}</h3>
+  {% for item in myitems %}
+  <div class="panel panel-info">
+    <div class="panel-heading">
+      <h3>{{item[2]}}</h3>
+    </div>
+    <div class="panel-body">
+      <div class="media">
+	<div class="media-left">
+	<a href="{{url_for('viewpost', postid=item[0])}}">
+	  <img class="img-rounded" src={{item[4]}} height="150px" width="150px" alt="what"></a><br><br>
+	</div>
+	<div class="media-body">
+	  <h3>{{item[2]}}</h3><br>
+	  <h4>	
+	    Price: {{item[7]}}<br>
+	    Start of Bidding: {{item[5]}}<br>
+	    End of Bidding: {{item[6]}}
+	  </h4>
+	</div>
       </div>
     </div>
-    <div class="well well-sm">
-      Price: {{item[6]}}<br>
-      Start time: {{item[4]}}<br>
-      End time: {{item[5]}}
+    <div class="panel-footer">
+      {{item[8]}}
     </div>
   </div>
-  <div class="panel-footer">
-    {{item[7]}}
-  </div>
-</div>
-
-{% endfor %}
+  {% endfor %}
 </div>
 {% endblock bodycontent %}
