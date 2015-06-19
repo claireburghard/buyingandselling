@@ -24,13 +24,12 @@
 	{% else %}
 	<a href="{{url_for('viewmessage',otheruser=item[0])}}" class="list-group-item">
 	  {% endif %}
-	  <span class="badge">0</span> <!-- this needs to not be hardcoded -->
 	  {% if item[0] == currentuser %}
 	  <h4 class="list-group-item-heading">{{item[1]}}</h4>
 	  {% else %}
 	  <h4 class="list-group-item-heading">{{item[0]}}</h4>
 	  {% endif %}
-	  <p class="list-group-item-text">{{item[2][0]}}</p>
+	  <p class="list-group-item-text" style="word-break:break-all;word-wrap:break-word;">{{item[2][0]['mess']}}</p>
 	  <!-- needs content -->
 	</a>
 	

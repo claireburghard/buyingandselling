@@ -14,7 +14,14 @@
   <br><div class="panel panel-default">
     <ul class="list-group">
       {% for item in messlog %}
-      <li class="list-group-item">{{item}}</li>
+      {% if item['user'] == session['username'] %}
+      <li class="list-group-item" align="right" style="word-break:break-all;word-wrap:break-word;">
+	{{item['mess']}}
+	{% else %}
+      <li class="list-group-item" style="word-break:break-all;word-wrap:break-word;">
+	{{item['mess']}}
+	{% endif %}
+      </li>
       {% endfor %}
   </div> 
 </div>

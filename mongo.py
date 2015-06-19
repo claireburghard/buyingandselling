@@ -345,16 +345,14 @@ def add_message(person1, person2, new_message):
         conversation = messages.find_one({'person1': person2, 'person2': person1})
     if conversation == None:
         return "users not found"
-    print conversation
     p1 = conversation['person1']
     p2 = conversation['person2']
     mess = conversation['messages']
-    print mess
-    #mess.insert(0, new_message) #adds to the front of the list
+    new_mess = [new_message] + mess
     db.messages.update( {'person1':p1, 'person2':p2}, {
         'person1':p1,
         'person2': p2,
-        'messages': mess } )
+        'messages': new_mess } )
     return
 
 def get_messages(curruser,op):

@@ -200,8 +200,6 @@ def viewpost(postid):
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
-        thing = postid
-        print thing
         if request.method=="GET":
             return render_template('viewpost.html', post = mongo.find_post(postid)[0])
         else:
@@ -277,12 +275,13 @@ def viewmessage(otheruser):
                 return redirect(url_for('logout'))
             if request.form['b']=="Submit":
                 response = request.form['response']
+                record = {'user':session['username'],'mess':response}
                 if response == "":
                     render_template('viewmessage.html',
                                    otheruser=otheruser,
                                    currentuser=session['username'],
                                    messlog=mongo.get_messages(session['username'],otheruser))
-                mongo.add_message(session['username'],otheruser,response)
+                mongo.add_message(session['username'],otheruser,record)
                 return redirect(url_for('viewmessage', otheruser=otheruser))
                 
 
@@ -307,7 +306,7 @@ def newmessage():
                      return render_template("newmessage.html", message = "That user does not exist.")
                 else:
                     message_list=[]
-                    message_list.append(content)
+                    message_list.append({'user':session['username'],'mess':content})
                     mongo.add_conversation(user, op, message_list)
                     return redirect(url_for('viewmessage', otheruser=op))
         
