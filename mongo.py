@@ -83,108 +83,21 @@ def get_profilepicture(username):
     return profilepicture
 
 
-def update_name(username, new_name):
+def update_profile(username, new_name, newpicture, newpassword,newbio,newcontactinfo):
     user = users.find_one({'username':username})
-    uname = user['username']
-    #name = user['name']
-    password = user['password']
-    bio = user['bio']
     rating = user['rating']
     ratings = user['ratings']
-    profilepicture = user['profilepicture']
-    contactinfo = user['contactinfo']
     db.users.update( {'username': username}, {
         'username': username,
         'name' : new_name,
-        'password' : password,
-        'bio' : bio,
+        'password' : newpassword,
+        'bio' : newbio,
         'rating' : rating,
         'ratings' : ratings,
-        'profilepicture' : profilepicture,
-        'contactinfo':contactinfo} )
+        'profilepicture' : newpicture,
+        'contactinfo': newcontactinfo} )
     return
 
-
-def update_password(username, new_pass):
-    user = users.find_one({'username':username})
-    uname = user['username']
-    name = user['name']
-    #password = user['password']
-    bio = user['bio']
-    rating = user['rating']
-    ratings = user['ratings']
-    profilepicture = user['profilepicture']
-    contactinfo = user['contactinfo']
-    db.users.update( {'username': username}, {
-        'username': username,
-        'name' : name,
-        'password' : new_pass,
-        'bio' : bio,
-        'rating' : rating,
-        'ratings' : ratings,
-        'profilepicture' : profilepicture,
-        'contactinfo':contactinfo} )
-    return
-
-def update_bio(username, new_bio):
-    user = users.find_one({'username':username})
-    name = user['name']
-    password = user['password']
-    #bio = user['bio']
-    rating = user['rating']
-    ratings = user['ratings']
-    profilepicture = user['profilepicture']
-    contactinfo = user['contactinfo']
-    db.users.update( {'username': username}, {
-        'username': username,
-        'name' : name,
-        'password': password,
-        'bio' : new_bio,
-        'rating' : rating,
-        'ratings' : ratings,
-        'profilepicture' : profilepicture,
-        'contactinfo':contactinfo} )
-    return
-
-def update_profilepicture(username, new_profilepicture):
-    user = users.find_one({'username':username})
-    name = user['name']
-    password = user['password']
-    bio = user['bio']
-    rating = user['rating']
-    ratings = user['ratings']
-    #profilepicture = user['profilepicture']
-    contactinfo = user['contactinfo']
-    db.users.update( {'username': username}, {
-        'username': username,
-        'name' : name,
-        'password': password,
-        'bio' : bio,
-        'rating' : rating,
-        'ratings' : ratings,
-        'profilepicture' : new_profilepicture,
-        'contactinfo':contactinfo} )
-    return
-
-def update_contactinfo(username, new_contactinfo):
-    user = users.find_one({'username':username})
-    uname = user['username']
-    name = user['name']
-    password = user['password']
-    bio = user['bio']
-    rating = user['rating']
-    ratings = user['ratings']
-    profilepicture = user['profilepicture']
-    db.users.update( {'username': username}, {
-        'username': username,
-        'name' : name,
-        'password': password,
-        'bio' : bio,
-        'rating' : rating,
-        'ratings' : ratings,
-        'profilepicture' : profilepicture,
-        'contactinfo': new_contactinfo} )
-    return
 
 def rate(username, new_rating):
     user = users.find_one({'username':username})
@@ -254,7 +167,6 @@ def get_posts(username):
             temp_post.append(post['_id'])
             temp_post.append(post['username'])
             temp_post.append(post['title'])
-            temp_post.append(post['content'])
             temp_post.append(post['picture'])
             temp_post.append(post['time_start'])
             temp_post.append(post['time_ends'])
@@ -282,43 +194,36 @@ def get_all_posts():
             temp_post.append(post['_id'])
             temp_post.append(post['username'])
             temp_post.append(post['title'])
-            temp_post.append(post['content'])
             temp_post.append(post['picture'])
             temp_post.append(post['time_start'])
             temp_post.append(post['time_ends'])
             temp_post.append(post['price'])
             temp_post.append(post['tags'])
             posts_list.append(temp_post)
-        print posts_list
         return posts_list
 
-def bid(bidder_uname, poster_uname, post_title, new_price):
-    post = posts.find_one({'username':poster_uname, 'title':post_title})
-
+def bid(bid, bidder, post_id):
+    post = posts.find_one({'_id':ObjectId(post_id)})
     username = post['username']
     title = post['title']
     content = post['content']
     picture = post['picture']
     time_start = post['time_start']
     time_ends = post['time_ends']
-    tags = post['tags_string']
-    price = post['price']
-
-    if new_price <= price:
-        return "new price must be higher than old price"
-    
-    db.posts.update({'username':username, 'title':title},
+    tags = post['tags']
+    tags_array = post['tags_array']
+    db.posts.update({'username':username,'title':title},
                     {'username': username,
                      'title': title,
                      'content': content,
-                     'price': new_price,
+                     'price': bid,
                      'picture':picture,
-                     'highest_bidder': bidder_uname,
+                     'highest_bidder': bidder,
                      'time_start': time_start,
                      'time_ends': time_ends,
                      'tags':tags,
+                     'tags_array':tags_array
                      })
-
     return
 
 def get_following_posts(username):

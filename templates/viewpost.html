@@ -1,6 +1,7 @@
 {% extends "home.html" %}
 
 {% block bodycontent %}
+<center><h3>{{message}}</h3></center><br>
 
 <div class="container" style="max-width:800px;">
   <div class="panel panel-info">
@@ -28,7 +29,11 @@
 	</div><!---media body--->
       </div><!---media--->
       <div class="well well-sm">
-	<h4> Current Price: {{post['price']}}</h4>
+	<h4> Current Price: ${{post['price']}}
+	  {% if post['highest_bidder'] != None %}
+	  <span style="float:right;">By: <a href="{{url_for('profile',user=post['highest_bidder'])}}">{{post['highest_bidder']}}   </a></span>
+	  {% endif %}
+	</h4> 
 	<form role="form" method="POST">
 	  <div class="input-group">
 	    <input type="text" class="form-control" name="bid" placeholder="Raise the bid">

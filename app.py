@@ -106,10 +106,8 @@ def signup():
                     contactinfo = request.form['contactinfo']
                 else:
                     contactinfo = mongo.get_contactinfo(username)
-                mongo.update_name(username,name)
-                mongo.update_profilepicture(username,picture)
-                mongo.update_bio(username,bio)
-                mongo.update_contactinfo(username,contactinfo)
+                pword = mongo.get_password(username)
+                mongo.update_profile(username,name,picture,pword,newbio,contactinfo)
                 return redirect(url_for('home'))
 
 
@@ -176,11 +174,8 @@ def editprofile():
                     newcontactinfo = request.form['newcontactinfo']
                 else:
                     newcontactinfo = mongo.get_contactinfo(username)
-                mongo.update_name(username,newname)
-                mongo.update_profilepicture(username,newpicture)
-                mongo.update_password(username,newpassword)
-                mongo.update_bio(username,newbio)
-                mongo.update_contactinfo(username,newcontactinfo)
+                mongo.update_profile(username,newname,newpicture,
+                                     newpassword,newbio,newcontactinfo)
                 return redirect(url_for('profile'))
                 
 
@@ -200,11 +195,24 @@ def viewpost(postid):
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
+        message = ""
+        post = mongo.find_post(postid)[0]
         if request.method=="GET":
-            return render_template('viewpost.html', post = mongo.find_post(postid)[0])
+            return render_template('viewpost.html',message = message, post = post)
         else:
             if request.form['b']=="Logout":
                return redirect(url_for('logout'))
+            if request.form['b']=="Submit":
+                post = mongo.find_post(postid)[0]
+                new_bid = request.form['bid']
+                user = session['username']
+                if float(new_bid) == 0.0:
+                    return render_template('viewpost.html',message = "Please input an actual number", post=post)
+                elif float(new_bid) < float(post['price']):
+                    return render_template('viewpost.html',message = "Your bid must be higher than previous bid",post=post)
+                else:
+                    mongo.bid(new_bid,user,postid)
+                    return redirect(url_for('viewpost',postid=postid))
 
 @app.route("/myitems",methods=['GET','POST'])
 def myitems():
