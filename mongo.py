@@ -7,12 +7,13 @@ posts = db.posts
 messages = db.messages
 
 ##### USER #####
-def add_user( username, password):
+def add_user(username, password):
     user = {
         'username' : username,
         'password' : password,
         'name' : "",
         'bio' : "",
+        'contactinfo' : "",
         'rating' : 4,
         'ratings' : 2,
         'profilepicture' : "http://cliparts.co/cliparts/qTB/6x8/qTB6x8zT5.svg"
@@ -57,6 +58,12 @@ def get_bio(username):
     bio = user['bio']
     return bio
 
+def get_contactinfo(username):
+    user = users.find_one({'username':username})
+    if user == None:
+        return "User not found"
+    contactinfo = user['contactinfo']
+    return contactinfo
 
 def get_rating(username):
     user = users.find_one({'username':username})
@@ -82,6 +89,7 @@ def update_name(username, new_name):
     rating = user['rating']
     ratings = user['ratings']
     profilepicture = user['profilepicture']
+    contactinfo = user['contactinfo']
     db.users.update( {'username': username}, {
         'username': username,
         'name' : new_name,
@@ -89,7 +97,8 @@ def update_name(username, new_name):
         'bio' : bio,
         'rating' : rating,
         'ratings' : ratings,
-        'profilepicture' : profilepicture} )
+        'profilepicture' : profilepicture,
+        'contactinfo':contactinfo} )
     return
 
 
@@ -102,6 +111,7 @@ def update_password(username, new_pass):
     rating = user['rating']
     ratings = user['ratings']
     profilepicture = user['profilepicture']
+    contactinfo = user['contactinfo']
     db.users.update( {'username': username}, {
         'username': username,
         'name' : name,
@@ -109,18 +119,19 @@ def update_password(username, new_pass):
         'bio' : bio,
         'rating' : rating,
         'ratings' : ratings,
-        'profilepicture' : profilepicture} )
+        'profilepicture' : profilepicture,
+        'contactinfo':contactinfo} )
     return
 
 def update_bio(username, new_bio):
     user = users.find_one({'username':username})
-    uname = user['username']
     name = user['name']
     password = user['password']
     #bio = user['bio']
     rating = user['rating']
     ratings = user['ratings']
     profilepicture = user['profilepicture']
+    contactinfo = user['contactinfo']
     db.users.update( {'username': username}, {
         'username': username,
         'name' : name,
@@ -128,18 +139,19 @@ def update_bio(username, new_bio):
         'bio' : new_bio,
         'rating' : rating,
         'ratings' : ratings,
-        'profilepicture' : profilepicture} )
+        'profilepicture' : profilepicture,
+        'contactinfo':contactinfo} )
     return
 
 def update_profilepicture(username, new_profilepicture):
     user = users.find_one({'username':username})
-    uname = user['username']
     name = user['name']
     password = user['password']
     bio = user['bio']
     rating = user['rating']
     ratings = user['ratings']
     #profilepicture = user['profilepicture']
+    contactinfo = user['contactinfo']
     db.users.update( {'username': username}, {
         'username': username,
         'name' : name,
@@ -147,12 +159,32 @@ def update_profilepicture(username, new_profilepicture):
         'bio' : bio,
         'rating' : rating,
         'ratings' : ratings,
-        'profilepicture' : new_profilepicture} )
+        'profilepicture' : new_profilepicture,
+        'contactinfo':contactinfo} )
+    return
+
+def update_contactinfo(username, new_contactinfo):
+    user = users.find_one({'username':username})
+    uname = user['username']
+    name = user['name']
+    password = user['password']
+    bio = user['bio']
+    rating = user['rating']
+    ratings = user['ratings']
+    profilepicture = user['profilepicture']
+    db.users.update( {'username': username}, {
+        'username': username,
+        'name' : name,
+        'password': password,
+        'bio' : bio,
+        'rating' : rating,
+        'ratings' : ratings,
+        'profilepicture' : profilepicture,
+        'contactinfo': new_contactinfo} )
     return
 
 def rate(username, new_rating):
     user = users.find_one({'username':username})
-    
     uname = user['username']
     name = user['name']
     password = user['password']

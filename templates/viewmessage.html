@@ -1,7 +1,7 @@
 {% extends "home.html" %}
 
 {% block bodycontent %}
-<h2-header>{{otheruser}}</h2-header><br>
+<h1-title><a href="{{url_for('profile',user=otheruser)}}">{{otheruser}}:</a></h1-title><br><br>
 <form role="form" method="POST">
   <div class="input-group">
     <input type="text" class="form-control" name="response" placeholder="Respond">

@@ -102,29 +102,34 @@ def signup():
                     bio = request.form['bio']
                 else:
                     bio = mongo.get_bio(username)
+                if request.form['contactinfo']!="":
+                    contactinfo = request.form['contactinfo']
+                else:
+                    contactinfo = mongo.get_contactinfo(username)
                 mongo.update_name(username,name)
                 mongo.update_profilepicture(username,picture)
                 mongo.update_bio(username,bio)
+                mongo.update_contactinfo(username,contactinfo)
                 return redirect(url_for('home'))
 
 
-@app.route("/profile",methods=['GET','POST'])
-def profile():
+@app.route("/profile/<user>",methods=['GET','POST'])
+def profile(user):
     if 'username' not in session:
         return redirect(url_for('index'))
     else:
-        name = session['username']
         if request.method=="GET":
-            username = session['username']
-            name = mongo.get_name(username)
+            name = mongo.get_name(user)
             #password = mongo.get_password(username)
-            bio = mongo.get_bio(username)
-            profilepicture = mongo.get_profilepicture(username)
+            bio = mongo.get_bio(user)
+            profilepicture = mongo.get_profilepicture(user)
+            contactinfo = mongo.get_contactinfo(user)
             return render_template('profile.html',
-                                   username=username,
+                                   username = user,
                                    name = name,
                                    bio=bio,
-                                   profilepicture=profilepicture)
+                                   profilepicture=profilepicture,
+                                   contactinfo=contactinfo)
         else:
             if request.form['b']=="Edit Profile":
                 return redirect(url_for('editprofile'))
@@ -167,10 +172,15 @@ def editprofile():
                     newbio = request.form['newbio']
                 else:
                     newbio = mongo.get_bio(username)
+                if request.form['newcontactinfo']!="":
+                    newcontactinfo = request.form['newcontactinfo']
+                else:
+                    newcontactinfo = mongo.get_contactinfo(username)
                 mongo.update_name(username,newname)
                 mongo.update_profilepicture(username,newpicture)
                 mongo.update_password(username,newpassword)
                 mongo.update_bio(username,newbio)
+                mongo.update_contactinfo(username,newcontactinfo)
                 return redirect(url_for('profile'))
                 
 

@@ -5,16 +5,23 @@
   <div class="panel-body">
     <div class="media">
       <div class="media-left">
-	<img  src={{ profilepicture }} height="300px" class="img-rounded">
+	<img  src={{ profilepicture }} height="300px" width="300px" class="img-rounded">
       </div><!---medialeft-->
       <div class="media-body">
+	{% if username == session['username'] %}
 	<h1-title class="media-heading"> Welcome {{ name }}!</h1-title><br>
+	{% else %}
+	<h1-title class="media-heading">{{ name }}'s profile:</h1-title><br>
+	{% endif %}
 	<h2-header>Username: {{ username }}</h2-header><br>
 	<h2-header>Name: {{ name }}</h2-header><br>
-	<h2-header>Bio: {{ bio }}</h2-header><br><br><br>
+	<h2-header>Bio: {{ bio }}</h2-header><br>
+	<h2-header>Contact: {{ contactinfo }}</h2-header><br><br><br>
+	{% if username == session['username'] %}
 	<form role="form" method="POST">
 	  <input type="submit" class="btn btn-default" name="b" value="Edit Profile">
 	</form>
+	{% endif %}
       </div><!---mediabody--->
     </div><!---media--->
   </div>

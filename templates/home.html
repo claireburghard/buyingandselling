@@ -18,7 +18,7 @@
 
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
-	<li><a href="{{ url_for('profile') }}">Profile</a></li>
+	<li><a href="{{ url_for('profile',user=session['username']) }}">Profile</a></li>
 	<li><a href="{{ url_for('market') }}">Market</a></li>
 	<li><a href="{{ url_for('myitems') }}">My Items</a></li>
 	<li><a href="{{ url_for('messages') }}">Messages</a></li>

@@ -2,7 +2,7 @@
 
 {% block bodycontent %}
 
-<center><h1-title>The Market</h1-title></center>
+<center><h1-title>The Market</h1-title></center><br>
 
 <!-- this should probably have some kind of content -->
 
@@ -12,22 +12,22 @@
 </center>
 {% endif %}
 
-
+<div class="container" style="max-width:800px;">
 {% for item in posts %}
 
 <div class="panel panel-info">
   <div class="panel-heading">
    <h3>{{item[1]}}</h3>
-    <h4>{{item[0]}}</h4>
+    <h4><a href="{{url_for('profile',user=item[0])}}">{{item[0]}}</a></h4>
   </div>
   <div class="panel-body">
     <div class="media">
+      <div class="media-left">
+	<img class="img-rounded" src={{item[3]}} height="250px" width="250px" alt="what"><br><br>
+      </div>
       <div class="media-body">
 	<h2-header>{{item[1]}}</h2-header>
 	<h3>{{item[2]}}</h3>
-      </div>
-      <div class="media-right">
-	  <img class="media-object" src={{item[3]}} height="250px" alt="what"><br>
       </div>
     </div>
     <div class="well well-sm">
@@ -43,5 +43,6 @@
 </div>
 
 {% endfor %}
+</div>
 
 {% endblock bodycontent %}
