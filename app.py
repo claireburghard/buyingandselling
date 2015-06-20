@@ -107,7 +107,7 @@ def signup():
                 else:
                     contactinfo = mongo.get_contactinfo(username)
                 pword = mongo.get_password(username)
-                mongo.update_profile(username,name,picture,pword,newbio,contactinfo)
+                mongo.update_profile(username,name,picture,pword,bio,contactinfo)
                 return redirect(url_for('home'))
 
 
